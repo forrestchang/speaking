@@ -21,22 +21,48 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+
+		<style>
+			section {
+				text-align: left
+			}
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section style="text-align: left;">
+				<section>
 					<h2>How to <span style="color: #FCE47A">build</span></h2>
 					<h2>A <span style="color: #3BCA41">Web</span> Framework</h2>
-					<h2>From <span style="color: #F66058">Zero</span></h2>
+					<h2>From <span style="color: #F66058">Scratch</span></h2>
 
 					<p style="font-size: 20px">Jiayuan Zhang <span style="margin-left: 10px">CSDN Python Developer's Day</span> <span style="margin-left: 10px;">2019.04</span></p>
 				</section>
-				<section style="text-align: left;">
+				<section>
 					<h3 style="color: #FCE47A">Who am I</h3>
 					<ul>
-						<li>Web Backend Developer</li>
-						<li>Test something</li>
+						<li>Backend Developer at iQiyi.Inc</li>
+						<li>Work with Python (Flask) and JavaScript (TypeScript, Vue.js)</li>
+						<li>Open Source Contributor (requests, werkzeug)</li>
+					</ul>
+				</section>
+				<section>
+					<h3 style="color: #FCE47A">Contact</h3>
+					<ul>
+						<li>Mail: <a href="mailto: forrestchang7@gmail.com">forrestchang7@gmail.com</a></li>
+						<li>Homepage: <a href="http://jiayuanzhang.com">Jiayuan Zhang</a></li>
+						<li>Blog: <a href="http://blog.jiayuanzhang.com">Jiayuan's Blog</a></li>
+						<li>GitHub: <a href="https://github.com/forrestchang">@forrestchang</a></li>
+					</ul>
+				</section>
+				<section>
+					<h3 style="color: #FCE47A">Outline</h3>
+					<ul>
+						<li>What is a web framework</li>
+						<li>What is <span style="color: #F66058">WSGI</span></li>
+						<li>Flask vs. Django</li>
+						<li>Build a web framework from scratch</li>
+						<li>How to contribute to Open Source</li>
 					</ul>
 				</section>
 			</div>
