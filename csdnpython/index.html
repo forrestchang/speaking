@@ -58,29 +58,300 @@
 				<section>
 					<h3 style="color: #FCE47A">Outline</h3>
 					<ul>
-						<li>What is a web framework</li>
-						<li>What is <span style="color: #F66058">WSGI</span></li>
-						<li>Flask vs. Django</li>
-						<li>Build a web framework from scratch</li>
-						<li>How to contribute to Open Source</li>
+						<li>什么是 Web 框架</li>
+						<li>什么是 <span style="color: #F66058">WSGI</span></li>
+						<li>从零开始构建一个 Web 框架</li>
+						<li>如何参与开源项目</li>
 					</ul>
 				</section>
-				<section>
-					<h3 style="color: #FCE47A">What is a web framework</h3>
+				<section data-transition="slide-in none-out">
+					<h3 style="color: #FCE47A">什么是 Web 框架</h3>
 					<p>A web framework (WF) or web application framework (WAF) is a 
 						software framework that is designed to <span style="color: #F66058">support the development 
 						of web applications</span> including web services, web resources, and web APIs.</p>
 					<p style="font-style: italic; text-align: right;">-- from Wikipedia</p>
 				</section>
+				<section data-transition="none-in slide-out">
+					<h3 style="color: #FCE47A">什么是 Web 框架</h3>
+					<p style="text-decoration: line-through">A web framework (WF) or web application framework (WAF) is a 
+						software framework that is designed to <span style="color: #F66058">support the development 
+						of web applications</span> including web services, web resources, and web APIs.</p>
+					<p style="font-style: italic; text-align: right;">-- from Wikipedia</p>
+				</section>
 				<section>
+					<h3 style="color: #FCE47A">什么是 Web 框架</h3>
+					<p>简单来讲，Web 框架能够让你更方便地编写 Web Application。</p>
+				</section>
+				<section>
+					<h3 style="color: #FCE47A">Web 框架提供的功能</h3>
 					<ul>
-						<li>Request and Response wrapper</li>
-						<li>Router dispatch</li>
-						<li>Cookies handling</li>
-						<li>Template engine</li>
-						<li>ORM</li>
+						<li>Request & Response 对象</li>
+						<li>路由管理</li>
+						<li>上下文管理</li>
+						<li>模板引擎</li>
+						<li>对象关系映射(ORM)</li>
 						<li>...</li>
 					</ul>
+				</section>
+				<section>
+					<h3 style="color: #FCE47A">什么是 WSGI</h3>
+					<ul>
+						<li class="fragment">Web Server Gateway Interface</li>
+						<li class="fragment">PEP 333 & PEP 3333</li>
+						<li class="fragment">定义了 Web server, application, middleware 之间通讯的接口协议</li>
+						<li class="fragment">不是某个具体的框架，只是一种协议</li>
+					</ul>
+				</section>
+				<section style="text-align: center;">
+					<h3 style="color: #FCE47A">WSGI 协议的目的</h3>
+					<blockquote>The goal of WSGI is to faciliate easy interconnection of existing server and applications or frameworks
+						, not to create a new web framework.
+					</blockquote>
+					<p class="fragment">提供了通用的规范，保证 Web Application 能够运行在各种符合协议的 Web Server 上。</p>
+				</section>
+				<section>
+					<h3 style="color: #FCE47A">Application/Framework 端协议</h3>
+					<ul>
+						<li class="fragment">App 必须是一个可调用（callable）对象</li>
+						<li class="fragment">接受两个参数：<code>environ</code> 和 <code>start_response</code></li>
+						<li class="fragment">返回值是一个字节序列：<code>List[bytes]</code></li>
+					</ul>
+				</section>
+				<section>
+					<h3 style="color: #FCE47A">可调用对象</h3>
+					<ul>
+						<li class="fragment">函数</li>
+						<li class="fragment">实现了 <code>__call__</code> 方法的类实例</li>
+					</ul>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						<h3 style="color: #FCE47A"><code>environ</code> 参数</h3>
+
+						服务器端运行的环境变量，例如 `REQUEST_METHOD`，`PATH_INFO`，`QUERY_STRING` 等 HTTP 请求信息。
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						<h3 style="color: #FCE47A"><code>start_response</code> 可调用对象</h3>
+
+						```python
+						def start_response(status, response_headers, exc_info=None):
+							pass
+						```
+
+						<p class="fragment">接受两个参数:</p>
+
+						<ul>
+							<li class="fragment"><code>status</code>: 返回信息的 HTTP 状态，字符串，例如 <code>'200 OK'</code></li>
+							<li class="fragment"><code>response_headers</code>: 返回信息的 Headers，元组序列，例如 <code>[('Content-type', 'plain/text')]</code> </li>
+						</ul>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						<h3 style="color: #FCE47A">一个最简单的符合 WSGI 协议的 App</h3>
+
+						```python
+						def application(environ, start_response):
+							status = '200 OK'
+							response_headers = [('Content-type', 'text/plain')]
+							start_response(status, response_headers)
+							return [b'Hello world\n']
+						```
+					</textarea>
+				</section>
+				<section style="text-align: center" data-markdown>
+					<textarea data-template>
+						<h3 style="color: #FCE47A">使用 simple_server 运行</h3>
+
+						```python
+						from werkzeug.serving import run_simple
+						from app import app
+
+						if __name__ == '__main__':
+							host = '127.0.0.1'
+							port = 5525
+
+							run_simple(
+								host, port,
+								app, use_debugger=True,
+								use_reloader=True
+							)
+						```
+					</textarea>
+				</section>
+				<section style="text-align: center" data-markdown>
+					<textarea data-template>
+						<h3 style="color: #FCE47A">使用 Gunicorn 运行</h3>
+
+						```bash
+						$ pip install gunicorn
+
+						# app.py
+						$ guniconrn app:application
+
+						[2019-02-09 17:58:56 +0500] Starting gunicorn 19.9.0
+						[2019-02-09 17:58:56 +0500] Listening at: http://127.0.0.1:8000 (30962)
+						[2019-02-09 17:58:56 +0500] Using worker: sync
+						[2019-02-09 17:58:56 +0500] Booting worker with pid: 30966
+						```
+
+						</div>
+					</textarea>
+				</section>
+				<section>
+					<h3 style="color: #FCE47A">缺失的功能</h3>
+
+					<ul>
+						<li class="fragment">需要处理复杂的 request 和 response</li>
+						<li class="fragment">只能请求根路由 <code>/</code></li>
+						<li class="fragment">没有上下文环境</li>
+					</ul>
+				</section>
+				<section style="text-align: center">
+					<h3 style="color: #FCE47A">1. 封装 Request 和 Response 对象</h3>
+				</section>
+
+				<section>
+					<section style="text-align: center">
+						<h3 style="color: #FCE47A">Request</h3>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+
+							```python
+							class Request:
+								def __init__(self, environ):
+									self.environ = environ
+							```
+
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+
+							```python
+							class Request:
+								@property
+								def path(self):
+									return self.environ.get('PATH_INFO', '').rstrip('/') + '/'
+							```
+
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+
+							```python
+							class Request:
+								@property
+								def method(self):
+									return self.environ.get('REQUEST_METHOD', 'GET').upper()
+							```
+
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+
+							```python
+							class Request:
+								@property
+								def query_string(self):
+									return self.environ.get('QUERY_STRING')
+
+								@property
+								def query(self):
+									query = {}
+									for elem in self.query_string.split('&'):
+										key, value = elem.split('=')
+										query[key] = value
+									return query
+							```
+
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+
+							```python
+							class Request:
+								@property
+								def protocol(self):
+									pass
+
+								@property
+								def headers(self):
+									pass
+
+								@property
+								def ip(self):
+									pass
+
+								@property
+								def hostname(self):
+									pass
+
+								@property
+								def body(self):
+									pass
+							```
+
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<section style="text-align: center">
+						<h3 style="color: #FCE47A">Response</h3>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							```python
+							class Response:
+								def __init__(self):
+									self.status = '200 OK'
+									self.headers = {}
+									self.body = None
+							```
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							```python
+							class Response:
+								@property
+								def status(self):
+									return self.status
+
+								@property
+								def response_headers(self):
+									return [(str(key), str(value)) for key, value in self.headers]
+
+								@property
+								def body(self):
+									return self.body
+							```
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<section style="text-align: center" data-markdown>
+						<textarea data-template>
+							<h3 style="color: #FCE47A">Application</h3>
+
+							```python
+							class Zen:
+								def __call__(self, environ, start_response):
+									request = Request(environ)
+									response = Response()
+									response.body = 'Hello world'
+									start_response(response.status, response.response_headers)
+									return [response.body.encode('utf-8')]
+							```
+
+						</textarea>
+					</section>
 				</section>
 			</div>
 		</div>
