@@ -87,7 +87,6 @@
 					<ul>
 						<li>Request & Response 对象</li>
 						<li>路由管理</li>
-						<li>上下文管理</li>
 						<li>模板引擎</li>
 						<li>对象关系映射(ORM)</li>
 						<li>...</li>
@@ -206,7 +205,6 @@
 					<ul>
 						<li class="fragment">需要处理复杂的 request 和 response</li>
 						<li class="fragment">只能请求根路由 <code>/</code></li>
-						<li class="fragment">没有上下文环境</li>
 					</ul>
 				</section>
 				<section style="text-align: center">
@@ -235,7 +233,7 @@
 							class Request:
 								@property
 								def path(self):
-									return self.environ.get('PATH_INFO', '').rstrip('/') + '/'
+									return self.environ.get('PATH_INFO', '')
 							```
 
 						</textarea>
@@ -272,34 +270,6 @@
 
 						</textarea>
 					</section>
-					<section data-markdown>
-						<textarea data-template>
-
-							```python
-							class Request:
-								@property
-								def protocol(self):
-									pass
-
-								@property
-								def headers(self):
-									pass
-
-								@property
-								def ip(self):
-									pass
-
-								@property
-								def hostname(self):
-									pass
-
-								@property
-								def body(self):
-									pass
-							```
-
-						</textarea>
-					</section>
 				</section>
 				<section>
 					<section style="text-align: center">
@@ -308,11 +278,15 @@
 					<section data-markdown>
 						<textarea data-template>
 							```python
+							STATUS_INFO = {
+								200: 'OK',
+								404: 'Not Found'
+							}
 							class Response:
 								def __init__(self):
-									self.status = '200 OK'
+									self.status_code = 200
 									self.headers = {}
-									self.body = None
+									self._body = None
 							```
 						</textarea>
 					</section>
@@ -322,15 +296,35 @@
 							class Response:
 								@property
 								def status(self):
-									return self.status
+									return f'{self.status_code} {STATUS_INFO[self.status_code]}'
 
 								@property
 								def response_headers(self):
 									return [(str(key), str(value)) for key, value in self.headers]
-
+							```
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							```python
+							class Response:
 								@property
 								def body(self):
-									return self.body
+									if self._body:
+										return self._body.encode('utf-8')
+
+								@body.setter
+								def body(self, value):
+									self._body = value
+							```
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							```python
+							class Response:
+								def set_header(self, key, value):
+									self.headers[key] = value
 							```
 						</textarea>
 					</section>
@@ -338,7 +332,7 @@
 				<section>
 					<section style="text-align: center" data-markdown>
 						<textarea data-template>
-							<h3 style="color: #FCE47A">Application</h3>
+							<h3 style="color: #FCE47A">Web Framework</h3>
 
 							```python
 							class Zen:
@@ -352,6 +346,124 @@
 
 						</textarea>
 					</section>
+					<section style="text-align: center" data-markdown>
+						<textarea data-template>
+							<h3 style="color: #FCE47A">Web Application</h3>
+
+							```python
+							# app.py
+							from zen import Zen
+							from werkzeug.serving import run_simple
+
+							app = Zen()
+
+							if __name__ == '__main__':
+								run_simple('127.0.0.1', 8080, app)
+							```
+
+						</textarea>
+					</section>
+				</section>
+				<section style="text-align: center">
+					<section>
+						<h3 style="color: #FCE47A">2. 添加路由匹配规则</h3>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							<h3 style="color: #FCE47A">添加路由装饰器</h3>
+
+							```python
+							class Zen:
+								def __init__(self):
+									self.route_processor = []
+
+								def route(self, path, method=None):
+									if method is None:
+										method = 'GET'
+									def _decorator(func):
+										self.route_processor.append((path, method, func))
+									return _decorator
+							```
+
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							<h3 style="color: #FCE47A">改写 <code>__call__</code></h3>
+
+							```python
+							class Zen:
+								def __call__(self, environ, start_response):
+									request = Request(environ)
+									response = Response()
+									matched = False
+
+									for path, method, func in self.route_processor:
+										if request.path == path:
+											matched = True
+											response.body = func()
+
+									if not matched:
+										response.status_code = 404
+										response.body = 'Not Found'
+
+									status = response.status
+									headers = response.response_headers
+									body = response.bodyk
+									start_response(status, headers)
+									return [body]
+							```
+
+						</textarea>
+					</section>
+				</section>
+				<section stye="text-align: center">
+					<section data-markdown>
+						<textarea data-template>
+							<h3 style="color: #FCE47A">重写 Application</h3>
+
+							```python
+							from zen import Zen
+
+							app = Zen()
+
+							@app.route('/', method='GET')
+							def index():
+								return 'Hello world.'
+
+							@app.route('/csdn', method='GET')
+							def csdn():
+								return 'Hello, developers.'
+							```
+
+						</textarea>
+					</section>
+					<section>
+						<ul>
+							<li>访问 http://127.0.0.1:8080/，返回 Hello world.</li>
+							<li class="fragment">访问 http://127.0.0.1:8080/csdn, 返回 Hello, developers.</li>
+						</ul>
+					</section>
+				</section>
+				<section style="text-align: center">
+					<h3 style="color: #FCE47A">Live Coding</h3>
+				</section>
+				<section>
+					<h3 style="color: #FCE47A">后续扩展</h3>
+					<ul>
+						<li class="fragment">支持动态路由</li>
+						<li class="fragment">完善的错误处理</li>
+						<li class="fragment">上下文管理机制</li>
+						<li class="fragment">中间件</li>
+						<li class="fragment">...</li>
+					</ul>
+				</section>
+				<section style="text-align: center">
+					<h2>Thank You</h2>
+					<ul>
+						<li>Email: <a href="mailto:forrestchang7@gmail.com">forrestchang7@gmail.com</a></li>
+						<li>Zen: <a href="https://github.com/forrestchang/zen">https://github.com/forrestchang/zen</a></li>
+					</ul>
 				</section>
 			</div>
 		</div>
