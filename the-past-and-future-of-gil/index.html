@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+	<html class="sl-root decks export offline loaded">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>The Past and Future of GIL</title>
+
+
+		<link rel="stylesheet" type="text/css" href="lib/offline-v2.css">
+
+
+
+	</head>
+	<body class="reveal-viewport theme-font-montserrat theme-color-black-orange">
+		<div class="reveal">
+			<div class="slides">
+				<section data-id="9ccebd9afcda7a92a6858122cce6402b"><div class="sl-block" data-block-type="text" style="width: 1120px; left: 80px; top: 263px; height: auto;" data-block-id="2d5971ee102b51729b8088e22439395b"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">The Past and Future of GIL</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 128px; height: 50px; left: 61px; top: 72px;" data-block-id="355b38cddc6b165129b706d178bc2dc6"><div class="sl-block-content" style="z-index: 12;"><img style="" data-natural-width="429" data-natural-height="168" data-lazy-loaded="" data-src="the-past-and-future-of-gil/00bad37ab9ff82a3848155737581d6e2.png"></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="6e0a80d6cde23b3349f474559d5051c3" style="height: auto; min-width: 30px; min-height: 30px; width: 198px; left: 179px; top: 76px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p style="text-align:left"><span style="font-size:0.7em">PyCon China · 2019</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" data-block-id="25f3ead96a7c12e237899a81802d16fd" style="height: auto; min-width: 30px; min-height: 30px; width: 240px; left: 87px; top: 393px;"><a class="sl-block-style" style="z-index: 14;" href="http://jiayuanzhang.com" target="_blank"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14; border-width: 15px;">
+<p style="text-align:left">Jiayuan Zhang</p>
+</div></a></div></section><section data-id="7cdea13980766f6659a2cb7bcc635992"><div class="sl-block" data-block-type="text" style="width: 476px; left: 84px; top: 66px; height: auto;" data-block-id="487b91339c4d88bb91221edb087b43b2"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12;">
+<h1 style="text-align:left">Who Am I?</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" data-block-id="3c9f6061647f2247edf9d8c391f1ae26" style="height: auto; min-width: 30px; min-height: 30px; width: 1051px; left: 69px; top: 171px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="0">Full-Stack Developer at IQIYI.Inc</li>
+	<li class="fragment" data-fragment-index="1">Python, JavaScript, Lisp and (Rust)</li>
+	<li class="fragment" data-fragment-index="2">
+	<p>Open source contributor, werkzeug, requests, doom-emacs, etc.</p>
+	</li>
+	<li class="fragment" data-fragment-index="3">Coding with Emacs, organizing my life with org-mode</li>
+</ul>
+</div></div></section><section data-id="bc7e53c9b961028b5c72b51bf9f7c41b"><div class="sl-block" data-block-type="text" style="width: 476px; left: 84px; top: 66px; height: auto;" data-block-id="512ce56025fa006aad9880cf68e1eb38"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">Outline</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1051px; left: 84px; top: 170px;" data-block-id="05a7cc8ebb76d18e4027e97cbfe34f18"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="0">What is GIL</li>
+	<li class="fragment" data-fragment-index="1">How GIL works</li>
+	<li class="fragment" data-fragment-index="2">Remove GIL</li>
+	<li class="fragment" data-fragment-index="3">The future</li>
+</ul>
+</div></div></section><section data-id="df0ea4362e86619c5cb48f0b02e56a5a"><div class="sl-block" data-block-type="text" style="width: 1076px; left: 102px; top: 285px; height: auto;" data-block-id="a071adaa574090d687cc8ca7aa66516e"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1>Part I</h1>
+
+<p>What is GIL?</p>
+</div></div></section><section data-id="7af8d4fa26c8f73dce53d80b81ce5ac0">
+
+
+<div class="sl-block" data-block-type="code" data-block-id="43673cff9ec62d8895eeb3bb155c6654" style="min-width: 30px; min-height: 30px; width: 960px; height: 576px; left: 160px; top: 72px;"><div class="sl-block-content notranslate" data-highlight-theme="darcula" data-code-frame="osx" style="z-index: 11; font-size: 150%;"><pre><code data-line-numbers=""># single_threaded.py
+import time
+from threading import Thread
+
+COUNT = 50000000
+
+def countdown(n):
+    while n &gt; 0:
+        n -= 1
+
+start = time.time()
+countdown(COUNT)
+end = time.time()
+
+print('Time taken in seconds -', end - start)</code></pre></div></div></section><section data-id="7eca66668a20c486345ceed9806ba5d7">
+
+
+<div class="sl-block" data-block-type="code" style="width: 960px; height: 144px; left: 160px; top: 288px;" data-block-id="f64659f1305f789291f370aa520906d9"><div class="sl-block-content notranslate" data-highlight-theme="darcula" data-code-frame="osx" style="z-index: 10; font-size: 150%;"><pre><code data-line-numbers="">$ python single_threaded.py
+Time taken in seconds - 6.20024037361145</code></pre></div></div></section><section data-id="a09e16b51dbf24f3a5ce42abb1c65255">
+
+
+<div class="sl-block" data-block-type="code" style="width: 960px; height: 576px; left: 160px; top: 72px;" data-block-id="a75b9eed58e40ef726e5bd85145e2277"><div class="sl-block-content notranslate" data-highlight-theme="darcula" data-code-frame="osx" style="z-index: 10; font-size: 125%;"><pre><code data-line-numbers=""># multi_threaded.py
+import time
+from threading import Thread
+
+COUNT = 50000000
+
+def countdown(n):
+    while n &gt; 0:
+        n -= 1
+
+t1 = Thread(target=countdown, args=(COUNT//2,))
+t2 = Thread(target=countdown, args=(COUNT//2,))
+
+start = time.time()
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+end = time.time()
+
+print('Time taken in seconds -', end - start)</code></pre></div></div></section><section data-id="9bc1e4e74c3e08465a7c902d964e1f71">
+
+
+<div class="sl-block" data-block-type="code" style="width: 960px; height: 144px; left: 160px; top: 288px;" data-block-id="b50e89db74cf286abc5ae20f8f07225a"><div class="sl-block-content notranslate" data-highlight-theme="darcula" data-code-frame="osx" style="z-index: 10; font-size: 150%;"><pre><code data-line-numbers="">$ python multi_threaded.py
+Time taken in seconds - 6.924342632293701</code></pre></div></div></section><section data-id="088a9db29fde47a3b8752387f2124675">
+
+
+<div class="sl-block" data-block-type="code" style="width: 960px; height: 144px; left: 160px; top: 396px;" data-block-id="44f27cd721e0ccad51e48f188d2c8404"><div class="sl-block-content notranslate" data-highlight-theme="darcula" data-code-frame="osx" style="z-index: 11; font-size: 150%;"><pre><code data-line-numbers="2">$ python multi_threaded.py
+Time taken in seconds - 6.924342632293701</code></pre></div></div>
+<div class="sl-block" data-block-type="code" style="width: 960px; height: 144px; left: 160px; top: 180px;" data-block-id="5725b683f1bee9a151d0f917072f5366"><div class="sl-block-content notranslate" data-highlight-theme="darcula" data-code-frame="osx" style="z-index: 12; font-size: 150%;"><pre><code data-line-numbers="2">$ python single_threaded.py
+Time taken in seconds - 6.20024037361145</code></pre></div></div>
+</section><section data-id="f44fe5e08216e427098aa4f7ca2a64a3"><div class="sl-block" data-block-type="text" style="width: 538px; left: 84px; top: 66px; height: auto;" data-block-id="1247dca5d20176d65932633534d78f7f"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">What is GIL ?</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1051px; left: 84px; top: 170px;" data-block-id="1dbcd85b7f16f25fbdd8d66e38a3f8fa"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="0">Global Interpreter Lock</li>
+	<li class="fragment" data-fragment-index="1">Mutex, pthread (Linux) or win thread (Windows), controlled by OS</li>
+	<li class="fragment" data-fragment-index="2">Allows only one thread to execute Python code at any point in time</li>
+	<li class="fragment" data-fragment-index="3">Bottleneck in CPU-bound and multi-threaded code</li>
+</ul>
+</div></div></section><section data-id="3e343a602320d2bb1660fb32eaec68d7"><div class="sl-block" data-block-type="text" style="width: 936px; left: 84px; top: 62px; height: auto;" data-block-id="ce6e732fd0c5d01c2ca3d9c31dbb39a9"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">What is GIL in Depth</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1051px; left: 84px; top: 170px;" data-block-id="194ae10e0490788b2c32734603028b18"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="0">Is Python thread safe?</li>
+	<li class="fragment" data-fragment-index="1">"Lock" on what?</li>
+</ul>
+</div></div></section><section data-id="207bf54a751a6ae310ab58511e587c90"><div class="sl-block" data-block-type="text" style="width: 936px; left: 84px; top: 62px; height: auto;" data-block-id="d65c923ed2e97b4bcbc021a03a76f433"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">Is Python Thread Safe?</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="code" data-block-id="4cdb85b53ecbf0412c573f608312e16c" style="min-width: 30px; min-height: 30px; width: 319px; height: 360px; left: 82px; top: 216px;"><div class="sl-block-style" style="z-index: 12; transform: rotate(360deg);"><div class="sl-block-content notranslate fragment" data-highlight-theme="darcula" data-code-frame="none" style="z-index: 12; font-size: 150%;" data-fragment-index="0"><pre class="python"><code style="padding: 10px;" data-line-numbers="">L.append(x)
+L1.extend(L2)
+x = L[i]
+x = L.pop()
+L1[i:j] = L2
+L.sort()
+x = y
+x.field = y
+D[x] = y
+D1.update(D2)
+D.keys()</code></pre></div></div></div>
+<div class="sl-block" data-block-type="code" style="min-width: 30px; min-height: 30px; width: 320px; height: 360px; left: 480px; top: 216px;" data-block-id="a13fc8de5c0c968838cf84b0d1860673"><div class="sl-block-content notranslate fragment" data-highlight-theme="darcula" data-code-frame="none" style="z-index: 13; font-size: 150%;" data-fragment-index="1"><pre class="python"><code style="padding: 10px;" data-line-numbers="">i = i+1
+L.append(L[-1])
+L[i] = L[j]
+D[x] = D[x] + 1</code></pre></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="7fd3861be2f8dac9ae615c5fbc4708a7" style="height: auto; min-width: 30px; min-height: 30px; width: 111px; left: 160px; top: 593px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;" data-fragment-index="2">
+<p>Safe</p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 167px; left: 557px; top: 593px;" data-block-id="e13d250566f54cf818d8f646fcaaa740"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;" data-fragment-index="3">
+<p>Not Safe</p>
+</div></div>
+<div class="sl-block" data-block-type="text" data-block-id="aec4f5a2f5be7a8c4adc74ba434c944d" style="height: auto; min-width: 30px; min-height: 30px; width: 779px; left: 84px; top: 670px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 16;" data-fragment-index="4">
+<p style="font-size:22.4px; text-align:start"><a href="https://docs.python.org/3.7/faq/library.html#id17" target="_blank"><span style="color:#00FFFF">What kinds of global value mutation are thread-safe?</span></a></p>
+</div></div></section><section data-id="56ed5dfc95a3b4b9968ee3828977d4c4"><div class="sl-block" data-block-type="text" style="width: 1076px; left: 102px; top: 274px; height: auto;" data-block-id="740773b8e8692fec886bc3a1bdffcd92"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1>Why?</h1>
+</div></div></section><section data-id="504ff027f927c885adc077dda8c42168"><div class="sl-block" data-block-type="text" style="width: 782px; left: 84px; top: 66px; height: auto;" data-block-id="79d7abb0f7cd7a1ad11b974ed1d5bed4"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1 style="text-align:left">How Python Runs?</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="image" data-block-id="ba34a920d96f3b957ae940ef819425df" style="min-width: 4px; min-height: 4px; width: 226px; height: 226px; left: 84px; top: 262px;"><div class="sl-block-content fragment" style="z-index: 11;" data-fragment-index="0"><img style="" data-natural-width="512" data-natural-height="512" data-lazy-loaded="" data-src="the-past-and-future-of-gil/36cea712a9621e700d820180049bbb29.png"></div></div>
+<div class="sl-block" data-block-type="image" data-block-id="45f62be19ff8ce1721c2b059a5bb6f0e" style="min-width: 4px; min-height: 4px; width: 201px; height: 201px; left: 519px; top: 275px;"><div class="sl-block-content fragment" style="z-index: 12;" data-fragment-index="3"><img style="" data-natural-width="256" data-natural-height="256" data-lazy-loaded="" data-src="the-past-and-future-of-gil/652cfda1484efe6aa7eb927c7e2657d4.png"></div></div>
+<div class="sl-block" data-block-type="image" data-block-id="3a1300495c926c7262e6b970e3d802e4" style="min-width: 4px; min-height: 4px; width: 170px; height: 170px; left: 969px; top: 288px;"><div class="sl-block-content fragment" style="z-index: 13;" data-fragment-index="6"><img style="" data-natural-width="512" data-natural-height="512" data-lazy-loaded="" data-src="the-past-and-future-of-gil/baa7b0318350d8baf777087efc0ff0be.png"></div></div>
+<div class="sl-block" data-block-type="line" data-block-id="ed1b972644cf5e577f6e03492104a436" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 309px; top: 374px;"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="210" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 14;" data-line-width="7px" data-fragment-index="2"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="210" height="1" viewbox="0 200 210 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="205.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="200.5" x2="205.5" y2="200.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(205,200) rotate(90)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 737px; top: 376px;" data-block-id="e89081a93b4d1d8c7754a977b457bbf0"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="210" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 15;" data-line-width="7px" data-fragment-index="5"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="210" height="1" viewbox="0 200 210 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="205.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="200.5" x2="205.5" y2="200.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(205,200) rotate(90)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="b3dc148a8d75a233747c5de0549351dd" style="height: auto; min-width: 30px; min-height: 30px; width: 214px; left: 90px; top: 498px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 16;" data-fragment-index="1">
+<p>Python Source Code (.py files)</p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 271px; left: 505px; top: 518px;" data-block-id="48e950922b93b1c25e13cb36033911ca"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17;" data-fragment-index="4">
+<p>Python Interpreter</p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 271px; left: 919px; top: 518px;" data-block-id="8904418601b01e5c4582d9e742eb7f62"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 19;" data-fragment-index="7">
+<p>Result</p>
+</div></div></section><section data-id="1ca1310e181b99cb1f39e0b6f202a13e"><div class="sl-block" data-block-type="text" style="width: 1161px; left: 84px; top: 66px; height: auto;" data-block-id="9a6d494dc0b9a462e8593f032cd1d6c5"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1 style="text-align:left">What is Python Interpreter?</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 226px; height: 226px; left: 84px; top: 254px;" data-block-id="c7996f887a5bfa45e71cfb8a16351004"><div class="sl-block-content fragment" style="z-index: 11;" data-fragment-index="0"><img style="" data-natural-width="512" data-natural-height="512" data-lazy-loaded="" data-src="the-past-and-future-of-gil/36cea712a9621e700d820180049bbb29.png"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 214px; left: 90px; top: 490px;" data-block-id="8d5b9f8b39eb8c4c9afad90968f5e751"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;" data-fragment-index="1">
+<p>Python Source Code (.py files)</p>
+</div></div>
+<div class="sl-block" data-block-type="shape" data-block-id="fd20fc3686472c3e5491477b7f849214" style="min-width: 4px; min-height: 4px; width: 633px; height: 360px; left: 335px; top: 226px;"><div class="sl-block-content fragment" data-shape-type="rect" data-shape-fill-color="rgb(170, 170, 170)" data-shape-stretch="true" style="z-index: 13;" data-shape-corner-radius="20px" data-fragment-index="3"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 633 360"><rect width="633" height="360" rx="20" ry="20" class="shape-element" fill="rgb(170, 170, 170)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 170px; height: 170px; left: 1022px; top: 301px;" data-block-id="027bc7582b471878f635a6cb9e52e8c8"><div class="sl-block-content fragment" style="z-index: 14;" data-fragment-index="17"><img style="" data-natural-width="512" data-natural-height="512" data-lazy-loaded="" data-src="the-past-and-future-of-gil/baa7b0318350d8baf777087efc0ff0be.png"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 271px; left: 972px; top: 510px;" data-block-id="63d446cbf5da512f3173df02595857d9"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;" data-fragment-index="18">
+<p>Result</p>
+</div></div>
+<div class="sl-block" data-block-type="shape" data-block-id="6f8af722cd824483feafb9b5015598ab" style="min-width: 4px; min-height: 4px; width: 142px; height: 136px; left: 375px; top: 325px;"><div class="sl-block-content fragment" data-shape-type="rect" data-shape-fill-color="rgb(34, 34, 34)" data-shape-stretch="true" style="z-index: 16;" data-fragment-index="5"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 142 136"><rect width="142" height="136" rx="0" ry="0" class="shape-element" fill="rgb(34, 34, 34)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="59cc3b8e2d57b9b496036e3687ca975c" style="height: auto; min-width: 30px; min-height: 30px; width: 132px; left: 380px; top: 367px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17;" data-fragment-index="6">
+<p><span style="font-size:0.7em">Compiler</span></p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 142px; height: 136px; left: 580px; top: 325px;" data-block-id="70e314f0f5d87b7708bd4cad4ccd2465"><div class="sl-block-content fragment" data-shape-type="rect" data-shape-fill-color="rgb(34, 34, 34)" data-shape-stretch="true" style="z-index: 18;" data-fragment-index="8"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 142 136"><rect width="142" height="136" rx="0" ry="0" class="shape-element" fill="rgb(34, 34, 34)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 132px; left: 585px; top: 367px;" data-block-id="7de242c522ef65bb8bcf65b8a6ba6f67"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 19;" data-fragment-index="9">
+<p><span style="font-size:0.7em">Bytecode</span></p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 142px; height: 136px; left: 788px; top: 325px;" data-block-id="4075426d3d728d94986cd2d93f82bfdb"><div class="sl-block-content fragment" data-shape-type="rect" data-shape-fill-color="rgb(34, 34, 34)" data-shape-stretch="true" style="z-index: 20;" data-fragment-index="11"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 142 136"><rect width="142" height="136" rx="0" ry="0" class="shape-element" fill="rgb(34, 34, 34)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 132px; left: 793px; top: 354px;" data-block-id="c5628f02a7e12fdfff16a421d3364922"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 21;" data-fragment-index="12">
+<p><span style="font-size:0.7em">Virtual Machine</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 335px; left: 484px; top: 609px;" data-block-id="c5402f51aa4db63430a97ae8d851b1a2"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 22;" data-fragment-index="4">
+<p>Python Interpreter</p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 278px; top: 386px;" data-block-id="2e5ec11f53ec749c6e48b61a8b95c087"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="85" data-line-y2="201" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 23;" data-line-width="7px" data-fragment-index="2"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="85" height="1" viewbox="0 200 85 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="80.5" y2="201.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="200.5" x2="80.5" y2="201.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(80,201) rotate(90.674)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 525px; top: 393px;" data-block-id="d7bc745af2cd89b01085590c82d179df"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="48" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 24;" data-line-width="7px" data-fragment-index="7"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="48" height="1" viewbox="0 200 48 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="43.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="200.5" x2="43.5" y2="200.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(43,200) rotate(90)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 734px; top: 393px;" data-block-id="36de05b4caa08b19d568b36c229953ec"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="48" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 25;" data-line-width="7px" data-fragment-index="10"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="48" height="1" viewbox="0 200 48 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="43.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="200.5" x2="43.5" y2="200.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(43,200) rotate(90)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 938px; top: 387px;" data-block-id="35ea582ffdaaf82547ea0a8789dafbee"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="78" data-line-y2="201" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 26;" data-line-width="7px" data-fragment-index="16"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="78" height="1" viewbox="0 200 78 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="73.5" y2="201.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="200.5" x2="73.5" y2="201.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(73,201) rotate(90.735)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 142px; height: 136px; left: 788px; top: 549px;" data-block-id="03814d2c655e3d3149e71ecf8a03c613"><div class="sl-block-content fragment" data-shape-type="rect" data-shape-fill-color="rgb(162, 196, 201)" data-shape-stretch="true" style="z-index: 28;" data-fragment-index="13"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 142 136"><rect width="142" height="136" rx="0" ry="0" class="shape-element" fill="rgb(162, 196, 201)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 132px; left: 793px; top: 578px;" data-block-id="dc877785ea4ff0c88aeb084c86a874db"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 29;" data-fragment-index="14">
+<p><span style="font-size:21px">Library Modules</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 859px; top: 471px;" data-block-id="e07025c1e379ed52b3ecd58204a22d54"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="161" data-line-x2="0" data-line-y2="96" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 30;" data-line-width="7px" data-fragment-index="15"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="65" viewbox="0 96 1 65"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="161.5" x2="0.5" y2="101.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="161.5" x2="0.5" y2="101.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(0,101) rotate(0)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div></section><section data-id="c8d503081934f7d94b97dc6439236a9a"><div class="sl-block" data-block-type="text" style="width: 1161px; left: 84px; top: 66px; height: auto;" data-block-id="544c76faf4027d3557aec9f2ee2b23f2"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1 style="text-align:left">"Lock" on What?</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="image" style="width: 226px; height: 226px; left: 84px; top: 254px; min-width: 4px; min-height: 4px;" data-block-id="277b16d39af7204481be99b46bda93c1"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="512" data-natural-height="512" data-lazy-loaded="" data-src="the-past-and-future-of-gil/36cea712a9621e700d820180049bbb29.png"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 214px; left: 90px; top: 490px;" data-block-id="3d895393db7087ae5110239a00c15194"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<p>Python Source Code (.py files)</p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="width: 633px; height: 360px; left: 335px; top: 226px;" data-block-id="1816db3693c8e662e400ef6296a4e3b3"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgb(170, 170, 170)" data-shape-stretch="true" style="z-index: 13;" data-shape-corner-radius="20px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 633 360"><rect width="633" height="360" rx="20" ry="20" class="shape-element" fill="rgb(170, 170, 170)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="image" style="width: 170px; height: 170px; left: 1022px; top: 301px; min-width: 4px; min-height: 4px;" data-block-id="fcfbba59f0b5af711fe49e318852b2c4"><div class="sl-block-content" style="z-index: 14;"><img style="" data-natural-width="512" data-natural-height="512" data-lazy-loaded="" data-src="the-past-and-future-of-gil/baa7b0318350d8baf777087efc0ff0be.png"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 271px; left: 972px; top: 510px;" data-block-id="3a19bf93310983755c9354ecb5b65a45"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;">
+<p>Result</p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="width: 142px; height: 136px; left: 375px; top: 325px;" data-block-id="d16268ac56fddaf45c45a766f26fa4aa"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgb(34, 34, 34)" data-shape-stretch="true" style="z-index: 16;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 142 136"><rect width="142" height="136" rx="0" ry="0" class="shape-element" fill="rgb(34, 34, 34)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 132px; left: 380px; top: 367px;" data-block-id="833488450bef7e538f605e92f29c39f4"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17;">
+<p><span style="font-size:0.7em">Compiler</span></p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="width: 142px; height: 136px; left: 580px; top: 325px;" data-block-id="a6bbf331151f60064eadb603a23b5dcc"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgb(34, 34, 34)" data-shape-stretch="true" style="z-index: 18;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 142 136"><rect width="142" height="136" rx="0" ry="0" class="shape-element" fill="rgb(34, 34, 34)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 132px; left: 585px; top: 367px;" data-block-id="90c96ce34e6c5606a93d8b99c3bf9936"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 19;">
+<p><span style="font-size:0.7em">Bytecode</span></p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="width: 142px; height: 136px; left: 788px; top: 325px;" data-block-id="cebcd68e01a8f97d00b138d28a269eca"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgb(34, 34, 34)" data-shape-stretch="true" style="z-index: 20;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 142 136"><rect width="142" height="136" rx="0" ry="0" class="shape-element" fill="rgb(34, 34, 34)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 132px; left: 793px; top: 354px;" data-block-id="9b73a452e54983e8f4e244c2ee74c1e9"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 21;">
+<p><span style="font-size:0.7em">Virtual Machine</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 335px; left: 484px; top: 609px;" data-block-id="5b3f9beb37cb621f2697a1759540abde"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 22;">
+<p>Python Interpreter</p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 278px; top: 386px;" data-block-id="d2f98a33b6a5112d989b34102abb5d84"><div class="sl-block-content" data-line-x1="0" data-line-y1="200" data-line-x2="85" data-line-y2="201" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 23;" data-line-width="7px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="85" height="1" viewbox="0 200 85 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="80.5" y2="201.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="200.5" x2="80.5" y2="201.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(80,201) rotate(90.674)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 525px; top: 393px;" data-block-id="738672be44273c562650ba71a6efed76"><div class="sl-block-content" data-line-x1="0" data-line-y1="200" data-line-x2="48" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 24;" data-line-width="7px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="48" height="1" viewbox="0 200 48 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="43.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="200.5" x2="43.5" y2="200.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(43,200) rotate(90)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 734px; top: 393px;" data-block-id="86c0cd2dc68b3ab3ca432f50444a23a0"><div class="sl-block-content" data-line-x1="0" data-line-y1="200" data-line-x2="48" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 26;" data-line-width="7px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="48" height="1" viewbox="0 200 48 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="43.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="200.5" x2="43.5" y2="200.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(43,200) rotate(90)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 938px; top: 387px;" data-block-id="8ec0132003fa1267cc1c4356eda274b7"><div class="sl-block-content" data-line-x1="0" data-line-y1="200" data-line-x2="78" data-line-y2="201" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 27;" data-line-width="7px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="78" height="1" viewbox="0 200 78 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="73.5" y2="201.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="200.5" x2="73.5" y2="201.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(73,201) rotate(90.735)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="shape" style="width: 142px; height: 136px; left: 788px; top: 549px;" data-block-id="a4472713ce02f24de1bb7ef889e6138b"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgb(162, 196, 201)" data-shape-stretch="true" style="z-index: 28;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 142 136"><rect width="142" height="136" rx="0" ry="0" class="shape-element" fill="rgb(162, 196, 201)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 132px; left: 793px; top: 578px;" data-block-id="c321c1d531bb21ca4bdda84112dbc904"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 29;">
+<p><span style="font-size:21px">Library Modules</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 859px; top: 471px;" data-block-id="9826875e84ca6d13d347f9da0d493fd0"><div class="sl-block-content" data-line-x1="0" data-line-y1="161" data-line-x2="0" data-line-y2="96" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 30;" data-line-width="7px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="65" viewbox="0 96 1 65"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="161.5" x2="0.5" y2="101.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="161.5" x2="0.5" y2="101.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(0,101) rotate(0)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="shape" data-block-id="cf438ad3b5efb149e773271105fb886e" style="min-width: 4px; min-height: 4px; width: 175px; height: 91px; left: 559px; top: 156px;"><div class="sl-block-content fragment" data-shape-type="rect" data-shape-fill-color="rgb(204, 65, 37)" data-shape-stretch="true" style="z-index: 31;" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 175 91"><rect width="175" height="91" rx="0" ry="0" class="shape-element" fill="rgb(204, 65, 37)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="8e8de0176f833ba7926bb2bcb88a9a3b" style="height: auto; min-width: 30px; min-height: 30px; width: 104px; left: 595px; top: 182px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 32;" data-fragment-index="0">
+<p>GIL</p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 647px; top: 260px;" data-block-id="1c9d1a4104c144ae161733e8587873d9"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="188" data-line-x2="0" data-line-y2="245" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 33;" data-line-width="7px" data-fragment-index="1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="57" viewbox="0 188 1 57"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="188.5" x2="0.5" y2="240.5"></line><line stroke="#ffffff" stroke-width="7" x1="0.5" y1="188.5" x2="0.5" y2="240.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="7" transform="translate(0,240) rotate(180)" d="M 15.75 15.75 L 0 0 L -15.75 15.75"></path></svg></div></div></section><section data-id="a5aa664c7f7a99fac6e667abc1a25a92"><div class="sl-block" data-block-type="text" style="width: 915px; left: 80px; top: 66px; height: auto;" data-block-id="eef780d875b93a8f2e99209564f7c584"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">Try Some Bytecode</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1051px; left: 80px; top: 230px;" data-block-id="b64130839f8fef4e2fd459436d8bfbc6"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; text-align: left; line-height: 1.95;" data-has-line-height="">
+<pre>Is <span style="color:#FF8C00">`number += 1`</span> thread safe?</pre>
+</div></div>
+<div class="sl-block" data-block-type="code" data-block-id="73f4f1100777f6fefdfb5d291a0aac9c" style="min-width: 30px; min-height: 30px; width: 960px; height: 174px; left: 80px; top: 310px;"><div class="sl-block-content notranslate fragment" data-highlight-theme="darcula" data-code-frame="osx" style="z-index: 13; font-size: 150%;" data-fragment-index="0"><pre class="python"><code data-line-numbers="1|3" data-fragment-index="0">from dis import dis
+
+dis(lambda x: x+1)</code></pre></div></div></section><section data-id="8c302ed0adeb39f9a03be307bc90df50"><div class="sl-block" data-block-type="text" style="width: 915px; left: 80px; top: 66px; height: auto;" data-block-id="539e07bbe2ac07512a3809c2ab18ce16"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">Try Some Bytecode</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="code" style="width: 960px; height: 216px; left: 80px; top: 216px;" data-block-id="cafd2a3bad82d9c2b3eed69867f58f45"><div class="sl-block-content notranslate" data-highlight-theme="darcula" data-code-frame="osx" style="z-index: 12; font-size: 150%;"><pre class="python"><code data-line-numbers="2|4|6" data-fragment-index="0">  1           0 LOAD_FAST                0 (x)
+              2 LOAD_CONST               1 (1)
+              4 BINARY_ADD
+              6 RETURN_VALUE
+</code></pre></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="5f45158f8cae97d2c14145c48057cbd0" style="height: auto; min-width: 30px; min-height: 30px; width: 74px; left: 585px; top: 285px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p><span style="color:#FFA07A"><span style="font-size:0.7em">GIL</span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" data-block-id="1e20535a3327008b5a68be70daf035c5" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 537px; top: 307px;"><div class="sl-block-content" data-line-x1="0" data-line-y1="200" data-line-x2="56" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="line-arrow" data-line-end-type="none" style="z-index: 14;" data-line-width="3px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="56" height="1" viewbox="0 200 56 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="2.5" y1="200.5" x2="56.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="3" x1="2.5" y1="200.5" x2="56.5" y2="200.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="3" transform="translate(2,200) rotate(90)" d="M -6.75 -6.75 L 0 0 L 6.75 -6.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 74px; left: 586px; top: 314px;" data-block-id="e5a0c3f44945ba261e8360809121826f"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;">
+<p><span style="color:#FFA07A"><span style="font-size:0.7em">GIL</span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 538px; top: 336px;" data-block-id="113a6bfd3c7f3ee7cd1a04cd150bd5fe"><div class="sl-block-content" data-line-x1="0" data-line-y1="200" data-line-x2="56" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="line-arrow" data-line-end-type="none" style="z-index: 16;" data-line-width="3px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="56" height="1" viewbox="0 200 56 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="2.5" y1="200.5" x2="56.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="3" x1="2.5" y1="200.5" x2="56.5" y2="200.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="3" transform="translate(2,200) rotate(90)" d="M -6.75 -6.75 L 0 0 L 6.75 -6.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 74px; left: 613px; top: 341px;" data-block-id="6a6e87116862e11c8ec5a0c079d9e5af"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17;">
+<p><span style="color:#FFA07A"><span style="font-size:0.7em">GIL</span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 565px; top: 363px;" data-block-id="bc8894a37f406b526f4e73bd967d20b6"><div class="sl-block-content" data-line-x1="0" data-line-y1="200" data-line-x2="56" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="line-arrow" data-line-end-type="none" style="z-index: 18;" data-line-width="3px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="56" height="1" viewbox="0 200 56 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="2.5" y1="200.5" x2="56.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="3" x1="2.5" y1="200.5" x2="56.5" y2="200.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="3" transform="translate(2,200) rotate(90)" d="M -6.75 -6.75 L 0 0 L 6.75 -6.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 74px; left: 585px; top: 255px;" data-block-id="a8d83db4b5d6f7aba3220915997b6154"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 19;">
+<p><span style="color:#FFA07A"><span style="font-size:0.7em">GIL</span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 537px; top: 277px;" data-block-id="477ec633b7b1dc285f743d180ffe7c2c"><div class="sl-block-content" data-line-x1="0" data-line-y1="200" data-line-x2="56" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="line-arrow" data-line-end-type="none" style="z-index: 20;" data-line-width="3px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="56" height="1" viewbox="0 200 56 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="2.5" y1="200.5" x2="56.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="3" x1="2.5" y1="200.5" x2="56.5" y2="200.5"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="3" transform="translate(2,200) rotate(90)" d="M -6.75 -6.75 L 0 0 L 6.75 -6.75"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="2e486be9de4c041ebd1ad284eac1cb4c" style="height: auto; min-width: 30px; min-height: 30px; width: 554px; left: 80px; top: 504px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 21; text-align: left;" data-fragment-index="0">
+<h2>Not Thread Safe!!!</h2>
+</div></div></section><section data-id="40510bb1b77f24f43a7e231706bf5b19"><div class="sl-block" data-block-type="text" style="width: 1076px; left: 102px; top: 285px; height: auto;" data-block-id="febabd8fa14ca5e37557cc3712314045"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1>Part II</h1>
+
+<p>How GIL works?</p>
+</div></div></section><section data-id="5f0c676e6d533aaa8cec7a98554ea45b"><div class="sl-block" data-block-type="text" style="width: 1059px; left: 84px; top: 66px; height: auto;" data-block-id="b69ff1f0e0f02f69aefe66e7850134e9"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">I/O Bound Module</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" data-block-id="e68ad5ab0e452dafd32bfb6027ef9566" style="height: auto; min-width: 30px; min-height: 30px; width: 140px; left: 107px; top: 228px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; text-align: left;" data-fragment-index="0">
+<p>Thread 1</p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 140px; left: 107px; top: 404px;" data-block-id="69ad4ed63e26394aa0e7105d8aeb4082"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; text-align: left;" data-fragment-index="0">
+<p>Thread 2</p>
+</div></div>
+<div class="sl-block" data-block-type="line" data-block-id="3f710bdca1313f16b2a7fadcaf8f2753" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 290px; top: 248px;"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="757" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 14;" data-line-style="dotted" data-line-width="3px" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="757" height="1" viewbox="0 200 757 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="3" stroke-dasharray="0 5.960629921259843" stroke-linecap="round" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 290px; top: 424px;" data-block-id="b53eea2ceca2ef269c461f22e1464ff5"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="757" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 15;" data-line-style="dotted" data-line-width="3px" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="757" height="1" viewbox="0 200 757 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="3" stroke-dasharray="0 5.960629921259843" stroke-linecap="round" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" data-block-id="1b1b4506dcd8426ced168de0d63bad25" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 290px; top: 248px;"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="117" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 16;" data-line-width="5px" data-fragment-index="1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="117" height="1" viewbox="0 200 117 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="110.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="110.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(110,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" data-block-id="742836d368068618e282492be35cddda" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 413px; top: 212px;"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 17;" data-line-width="4px" data-fragment-index="2"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="258" viewbox="0 -58 1 258"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="200" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="200" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="8e19cdda8684036977bceb5f59259327" style="height: auto; min-width: 30px; min-height: 30px; width: 37px; left: 395px; top: 165px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 18; text-align: left;" data-fragment-index="2">
+<p><span style="font-size:0.7em">I/O</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" data-block-id="d2fb2852eff068ffc210d0c5e9a577a7" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 358px; top: 470px;"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="189" data-line-x2="54" data-line-y2="149" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 19;" data-line-width="4px" data-fragment-index="3"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="37" height="40" viewbox="17 149 37 40"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="189" x2="52" y2="151"></line><line stroke="#ffffff" stroke-width="4" x1="17" y1="189" x2="52" y2="151"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(52,151) rotate(42.769)" d="M 9 9 L 0 0 L -9 9"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 92px; left: 312px; top: 516px;" data-block-id="fb1c7271e3e2e4e169d9b59626e519a7"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 20; text-align: left;" data-fragment-index="3">
+<p><span style="font-size:0.5em">Release GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 432px; top: 470px;" data-block-id="248c27e949e8959a8ba47cd5d2bdc232"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="189" data-line-x2="-11" data-line-y2="143" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 21;" data-line-width="4px" data-fragment-index="4"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="28" height="46" viewbox="-11 143 28 46"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="189" x2="-9" y2="146"></line><line stroke="#ffffff" stroke-width="4" x1="17" y1="189" x2="-9" y2="146"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(-9,146) rotate(-31.329)" d="M 9 9 L 0 0 L -9 9"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 92px; left: 432px; top: 516px;" data-block-id="03fcde4e86a02dc3d7c737361133caea"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 22; text-align: left;" data-fragment-index="4">
+<p><span style="font-size:0.5em">Acquire GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 414px; top: 423px;" data-block-id="85d7aed6c87c4966d2e5cf1bab007e2c"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="296" data-line-y2="201" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 23;" data-line-width="5px" data-fragment-index="5"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="296" height="1" viewbox="0 200 296 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="289.5" y2="201.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="289.5" y2="201.5"></line><polygon fill="#ffffff" transform="translate(289,201) rotate(90.194)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 712px; top: 212px;" data-block-id="05f075ee25ab9ebc82213d4eea8a38b3"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 24;" data-line-width="4px" data-fragment-index="6"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="258" viewbox="0 -58 1 258"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="200" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="200" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 37px; left: 694px; top: 165px;" data-block-id="ed3f0cc43ddee0d3c514f571a2491f68"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 25; text-align: left;" data-fragment-index="6">
+<p><span style="font-size:0.7em">I/O</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 657px; top: 470px;" data-block-id="b10e7558e4fd6457f09fffd9dc500776"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="189" data-line-x2="54" data-line-y2="149" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 26;" data-line-width="4px" data-fragment-index="7"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="37" height="40" viewbox="17 149 37 40"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="189" x2="52" y2="151"></line><line stroke="#ffffff" stroke-width="4" x1="17" y1="189" x2="52" y2="151"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(52,151) rotate(42.769)" d="M 9 9 L 0 0 L -9 9"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 92px; left: 611px; top: 516px;" data-block-id="13f2064f136faee990e90f8e71221d2f"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 27; text-align: left;" data-fragment-index="7">
+<p><span style="font-size:0.5em">Release GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 731px; top: 470px;" data-block-id="d6ca169ce477da38f8f7daa03c34b05a"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="189" data-line-x2="-11" data-line-y2="143" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 28;" data-line-width="4px" data-fragment-index="8"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="28" height="46" viewbox="-11 143 28 46"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="189" x2="-9" y2="146"></line><line stroke="#ffffff" stroke-width="4" x1="17" y1="189" x2="-9" y2="146"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(-9,146) rotate(-31.329)" d="M 9 9 L 0 0 L -9 9"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 92px; left: 731px; top: 516px;" data-block-id="a3984209d05e8f3976f9f4c8defd6ab3"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 29; text-align: left;" data-fragment-index="8">
+<p><span style="font-size:0.5em">Acquire GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 713px; top: 248px;" data-block-id="1eb2a7319dce5b70ae01059a1d6bc3be"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="245" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 30;" data-line-width="5px" data-fragment-index="9"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="245" height="1" viewbox="0 200 245 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="238.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="238.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(238,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 958px; top: 212px;" data-block-id="a2de6e1dad24b614a7fcba0dff7e57d9"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 31;" data-line-width="4px" data-fragment-index="10"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="258" viewbox="0 -58 1 258"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="200" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="200" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 37px; left: 940px; top: 165px;" data-block-id="c57d3c0dd09bff7cc01aac7aabbfe351"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 32; text-align: left;" data-fragment-index="10">
+<p><span style="font-size:0.7em">I/O</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 903px; top: 470px;" data-block-id="8008ffe920b88022e7d8a5060a442a47"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="189" data-line-x2="54" data-line-y2="149" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 33;" data-line-width="4px" data-fragment-index="11"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="37" height="40" viewbox="17 149 37 40"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="189" x2="52" y2="151"></line><line stroke="#ffffff" stroke-width="4" x1="17" y1="189" x2="52" y2="151"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(52,151) rotate(42.769)" d="M 9 9 L 0 0 L -9 9"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 92px; left: 857px; top: 516px;" data-block-id="06782c32df60b4fe3894d03f4ec69043"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 34; text-align: left;" data-fragment-index="11">
+<p><span style="font-size:0.5em">Release GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 977px; top: 470px;" data-block-id="7231daa46c3c8b570556f1e41e091b59"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="189" data-line-x2="-11" data-line-y2="143" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 35;" data-line-width="4px" data-fragment-index="12"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="28" height="46" viewbox="-11 143 28 46"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="189" x2="-9" y2="146"></line><line stroke="#ffffff" stroke-width="4" x1="17" y1="189" x2="-9" y2="146"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(-9,146) rotate(-31.329)" d="M 9 9 L 0 0 L -9 9"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 92px; left: 977px; top: 516px;" data-block-id="77b5b3a59ff7e3659d91c05a5b0e81f8"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 36; text-align: left;" data-fragment-index="12">
+<p><span style="font-size:0.5em">Acquire GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 959px; top: 424px;" data-block-id="3dd2d43a0128c17ba17ccb47ba2790f8"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="88" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 37;" data-line-width="5px" data-fragment-index="13"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="88" height="1" viewbox="0 200 88 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="81.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="81.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(81,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="2bdec62381316f258eb44527f91719ee" style="height: auto; min-width: 30px; min-height: 30px; width: 728px; left: 72px; top: 582px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 38; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="14">When a thread is running, it holds the GIL</li>
+	<li class="fragment" data-fragment-index="15">GiL released on I/O (read, write, send, recv, etc.)</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="text" data-block-id="431e7bb30f9a05ef4e02ed30f63e1720" style="height: auto; min-width: 30px; min-height: 30px; width: 254px; left: 1026px; top: 670px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 39;">
+<p><span style="font-size:0.5em">David Beazley <a href="https://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank">Understand GIL</a></span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" data-block-id="a1fefc256ee82061ab321ed6125a63c0" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 290px; top: 340px;"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="750" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 40;" data-line-width="4px" data-line-style="dashed" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="750" height="1" viewbox="0 200 750 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="200" x2="750" y2="200"></line><line stroke="#ffffff" stroke-width="4" stroke-dasharray="11.903225806451612 11.903225806451612" x1="0" y1="200" x2="750" y2="200"></line></svg></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="46f5db277fee8f24300d04c3a1591acc" style="height: auto; min-width: 30px; min-height: 30px; width: 53px; left: 214px; top: 321px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 41; text-align: left;" data-fragment-index="0">
+<p>OS</p>
+</div></div></section><section data-id="fd405170b9eae101971a6268ba7e6f74"><div class="sl-block" data-block-type="text" style="width: 1107px; left: 80px; top: 62px; height: auto;" data-block-id="e64cedf0b659fa1170a4568fac53af91"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1 style="text-align:left">CPU Bound Module</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 140px; left: 107px; top: 228px;" data-block-id="c8dcbfe83718d5cdedcd7353d2fe038e"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; text-align: left;" data-fragment-index="0">
+<p>Thread 1</p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 140px; left: 107px; top: 404px;" data-block-id="9846fda3e1da05076104d9203efefcbe"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; text-align: left;" data-fragment-index="0">
+<p>Thread 2</p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 290px; top: 248px;" data-block-id="99f089fd297452a808216350ad236deb"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="757" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 13;" data-line-style="dotted" data-line-width="3px" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="757" height="1" viewbox="0 200 757 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="3" stroke-dasharray="0 5.960629921259843" stroke-linecap="round" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 290px; top: 424px;" data-block-id="5f5166afed71e4faf63eb36bef61dd1d"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="757" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 14;" data-line-style="dotted" data-line-width="3px" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="757" height="1" viewbox="0 200 757 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="3" stroke-dasharray="0 5.960629921259843" stroke-linecap="round" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 290px; top: 248px;" data-block-id="4bca5bf8d1352ce7817f3560cc2ae725"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="117" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 15;" data-line-width="5px" data-fragment-index="1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="117" height="1" viewbox="0 200 117 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="110.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="110.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(110,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 413px; top: 212px;" data-block-id="d2214cbc1d1683a82d2248197a18c23a"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 16;" data-line-width="4px" data-fragment-index="3"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="258" viewbox="0 -58 1 258"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="200" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="200" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 65px; left: 382px; top: 165px;" data-block-id="9f2eb7b4a438b94cbfc4b13733a1afea"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17; text-align: left;" data-fragment-index="3">
+<p><span style="font-size:0.7em">Check</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 358px; top: 470px;" data-block-id="a62eb5bb20ea546ac99aeda7ca00d183"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="189" data-line-x2="54" data-line-y2="149" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 18;" data-line-width="4px" data-fragment-index="4"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="37" height="40" viewbox="17 149 37 40"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="189" x2="52" y2="151"></line><line stroke="#ffffff" stroke-width="4" x1="17" y1="189" x2="52" y2="151"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(52,151) rotate(42.769)" d="M 9 9 L 0 0 L -9 9"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 92px; left: 312px; top: 516px;" data-block-id="891dd7aa1fc0e8835529b1ac58ff63da"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 19; text-align: left;" data-fragment-index="4">
+<p><span style="font-size:0.5em">Release GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 432px; top: 470px;" data-block-id="501585b02f9a5aaea45f22398d119cac"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="189" data-line-x2="-11" data-line-y2="143" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 20;" data-line-width="4px" data-fragment-index="5"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="28" height="46" viewbox="-11 143 28 46"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="189" x2="-9" y2="146"></line><line stroke="#ffffff" stroke-width="4" x1="17" y1="189" x2="-9" y2="146"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(-9,146) rotate(-31.329)" d="M 9 9 L 0 0 L -9 9"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 92px; left: 432px; top: 516px;" data-block-id="02df3b5f6db69969318e9447bc84ff6c"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 21; text-align: left;" data-fragment-index="5">
+<p><span style="font-size:0.5em">Acquire GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 414px; top: 423px;" data-block-id="1bc6dd0aa4599f36f96aa3221e18153f"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="296" data-line-y2="201" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 22;" data-line-width="5px" data-fragment-index="6"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="296" height="1" viewbox="0 200 296 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="289.5" y2="201.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="289.5" y2="201.5"></line><polygon fill="#ffffff" transform="translate(289,201) rotate(90.194)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 712px; top: 212px;" data-block-id="d2ca64e7772acc1898795d7a9b04f50a"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 23;" data-line-width="4px" data-fragment-index="8"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="258" viewbox="0 -58 1 258"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="200" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="200" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 65px; left: 681px; top: 165px;" data-block-id="19f4ca9c22a3ccd202738b386d118b54"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 24; text-align: left;" data-fragment-index="8">
+<p><span style="font-size:0.7em">Check</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 657px; top: 470px;" data-block-id="5b8dd829a367b1f84a403add8650b266"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="189" data-line-x2="54" data-line-y2="149" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 25;" data-line-width="4px" data-fragment-index="9"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="37" height="40" viewbox="17 149 37 40"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="189" x2="52" y2="151"></line><line stroke="#ffffff" stroke-width="4" x1="17" y1="189" x2="52" y2="151"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(52,151) rotate(42.769)" d="M 9 9 L 0 0 L -9 9"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 92px; left: 611px; top: 516px;" data-block-id="ce5c404d8059c03d437f5657780742d4"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 26; text-align: left;" data-fragment-index="9">
+<p><span style="font-size:0.5em">Release GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 731px; top: 470px;" data-block-id="b1b72c1dadb784e746b699b22ec90405"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="189" data-line-x2="-11" data-line-y2="143" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 27;" data-line-width="4px" data-fragment-index="10"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="28" height="46" viewbox="-11 143 28 46"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="189" x2="-9" y2="146"></line><line stroke="#ffffff" stroke-width="4" x1="17" y1="189" x2="-9" y2="146"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(-9,146) rotate(-31.329)" d="M 9 9 L 0 0 L -9 9"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 92px; left: 731px; top: 516px;" data-block-id="8d0d9ca526aaf142ebdbd963ae16ccbe"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 28; text-align: left;" data-fragment-index="10">
+<p><span style="font-size:0.5em">Acquire GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 713px; top: 248px;" data-block-id="96583c6cffbbb154297da9f75e1e32a6"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="245" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 29;" data-line-width="5px" data-fragment-index="11"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="245" height="1" viewbox="0 200 245 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="238.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="238.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(238,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 958px; top: 212px;" data-block-id="ad885b53dfd9ea9a109593dc208b3e37"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 30;" data-line-width="4px" data-fragment-index="13"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="258" viewbox="0 -58 1 258"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="200" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="200" x2="0" y2="-58"></line></svg></div></div>
+
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 903px; top: 470px;" data-block-id="efefd7abd7b9b788f1a89dc9c75a0ac8"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="189" data-line-x2="54" data-line-y2="149" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 31;" data-line-width="4px" data-fragment-index="14"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="37" height="40" viewbox="17 149 37 40"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="189" x2="52" y2="151"></line><line stroke="#ffffff" stroke-width="4" x1="17" y1="189" x2="52" y2="151"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(52,151) rotate(42.769)" d="M 9 9 L 0 0 L -9 9"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 92px; left: 857px; top: 516px;" data-block-id="51fb95bd49202f0eea8b09372102f53c"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 32; text-align: left;" data-fragment-index="14">
+<p><span style="font-size:0.5em">Release GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 977px; top: 470px;" data-block-id="0ccc6cf28eb5679cf5bf2a4a7e23ecb4"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="189" data-line-x2="-11" data-line-y2="143" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 33;" data-line-width="4px" data-fragment-index="15"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="28" height="46" viewbox="-11 143 28 46"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="189" x2="-9" y2="146"></line><line stroke="#ffffff" stroke-width="4" x1="17" y1="189" x2="-9" y2="146"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(-9,146) rotate(-31.329)" d="M 9 9 L 0 0 L -9 9"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 92px; left: 977px; top: 516px;" data-block-id="4b17a4bfa8bb766bf36c1a72c126e9d9"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 34; text-align: left;" data-fragment-index="15">
+<p><span style="font-size:0.5em">Acquire GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 959px; top: 424px;" data-block-id="637bfe65638ea80e30e21a7395c495cf"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="88" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 35;" data-line-width="5px" data-fragment-index="16"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="88" height="1" viewbox="0 200 88 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="81.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="81.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(81,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1128px; left: 72px; top: 582px;" data-block-id="079d94816d30f192868f0651a5a5ff20"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 36; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="18">CPU bound threads that never perform I/O are handled as a special case</li>
+	<li class="fragment" data-fragment-index="19">A "check" occurs every 100 "ticks"</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 65px; left: 928px; top: 165px;" data-block-id="5d2377b711c9bb9ef892ed29022baa1c"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 37; text-align: left;" data-fragment-index="13">
+<p><span style="font-size:0.7em">Check</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 102px; left: 298px; top: 248px;" data-block-id="67cc80256a34b16336de63b2c86a128d"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 38; text-align: left;" data-fragment-index="2">
+<p><span style="font-size:15px">run 100 ticks</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 102px; left: 509px; top: 423px;" data-block-id="79d4b4216e19505b4084604e63cbe783"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 39; text-align: left;" data-fragment-index="7">
+<p><span style="font-size:15px">run 100 ticks</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 102px; left: 785px; top: 248px;" data-block-id="c395d2951c8e6ea90080ad553ec29244"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 41; text-align: left;" data-fragment-index="12">
+<p><span style="font-size:15px">run 100 ticks</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 102px; left: 967px; top: 424px;" data-block-id="cfa97583df6c3b34c2908c6192c7a919"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 43; text-align: left;" data-fragment-index="17">
+<p><span style="font-size:15px">run 100 ticks</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 254px; left: 1026px; top: 670px;" data-block-id="ebf99263973d6a6815e7f0b89bd2bf3a"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 44;">
+<p><span style="font-size:0.5em">David Beazley <a href="https://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank">Understand GIL</a></span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 290px; top: 340px;" data-block-id="4da4ef12c579ceecc5d3b57432002934"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="750" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 45;" data-line-width="4px" data-line-style="dashed" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="750" height="1" viewbox="0 200 750 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="200" x2="750" y2="200"></line><line stroke="#ffffff" stroke-width="4" stroke-dasharray="11.903225806451612 11.903225806451612" x1="0" y1="200" x2="750" y2="200"></line></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 53px; left: 214px; top: 321px;" data-block-id="4500473e0489407da2b3cb9179694f3a"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 46; text-align: left;" data-fragment-index="0">
+<p>OS</p>
+</div></div></section><section data-id="52c8abb98cbfa3a8d4cfeb8d6124e23e"><div class="sl-block" data-block-type="text" style="width: 776px; left: 84px; top: 58px; height: auto;" data-block-id="ee0b62b754f8dc51538291ab4a1844c4"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">Some OS Stuff</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1116px; left: 84px; top: 158px;" data-block-id="8a1ebe31c24bb349e8a10fe1eaa1bade"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="0">The operating system has a priority queue of threads/processes ready to run</li>
+	<li class="fragment" data-fragment-index="1">Signaled threads simply enter that queue</li>
+	<li class="fragment" data-fragment-index="2">The operating system then runs the process or thread with the highest priority</li>
+	<li class="fragment" data-fragment-index="3">It may or may not be the signaled thread</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 254px; left: 1026px; top: 670px;" data-block-id="bae4d18fda6c5bb66900afaaaf79343d"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p><span style="font-size:0.5em">David Beazley <a href="https://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank">Understand GIL</a></span></p>
+</div></div></section><section data-id="e0d5d99a40f84b4d22fceed257a6b5ee"><div class="sl-block" data-block-type="text" style="width: 1120px; left: 80px; top: 62px; height: auto;" data-block-id="2afd23d1eccd0e7c624ef4f3ce63c195"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1 style="text-align:left"><span style="font-size:0.7em">Real CPU Bound Thread Situation</span></h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 140px; left: 107px; top: 228px;" data-block-id="5bdcf0917fc89ca6202d4afa35a5d550"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; text-align: left;" data-fragment-index="0">
+<p>Thread 1</p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 140px; left: 107px; top: 404px;" data-block-id="6ee9180bd3c57f50c6e9fdf446703299"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; text-align: left;" data-fragment-index="0">
+<p>Thread 2</p>
+</div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1128px; left: 72px; top: 582px;" data-block-id="de7e3a512f720de2600d47f8ff7b3d98"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="22">Hundreds to thousands of checks might occur before a thread context switch</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 254px; left: 1026px; top: 670px;" data-block-id="e5cfe5efe3973581a0c09852fe40232b"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p><span style="font-size:0.5em">David Beazley <a href="https://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank">Understand GIL</a></span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 290px; top: 248px;" data-block-id="2b92d31a70bef8d45f952513ae67d5cf"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="757" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 15;" data-line-style="dotted" data-line-width="3px" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="757" height="1" viewbox="0 200 757 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="3" stroke-dasharray="0 5.960629921259843" stroke-linecap="round" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 290px; top: 424px;" data-block-id="9203d10a6268ee73de9f25cde1f49a88"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="757" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 16;" data-line-style="dotted" data-line-width="3px" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="757" height="1" viewbox="0 200 757 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="3" stroke-dasharray="0 5.960629921259843" stroke-linecap="round" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 290px; top: 248px;" data-block-id="d713cf79ea32399e084ce9fd22bb8b52"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="117" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 17;" data-line-width="5px" data-fragment-index="1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="117" height="1" viewbox="0 200 117 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="110.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="110.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(110,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 102px; left: 298px; top: 248px;" data-block-id="d861308ea75e8455eafe2548d54962a9"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 18; text-align: left;" data-fragment-index="2">
+<p><span style="font-size:15px">run 100 ticks</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 413px; top: 212px;" data-block-id="34cf352e87e34a2c730866d31170ed81"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 19;" data-line-width="4px" data-fragment-index="3"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 290px; top: 340px;" data-block-id="da51d750eb4283ce32902278673a829b"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="750" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 20;" data-line-width="4px" data-line-style="dashed" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="750" height="1" viewbox="0 200 750 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="200" x2="750" y2="200"></line><line stroke="#ffffff" stroke-width="4" stroke-dasharray="11.903225806451612 11.903225806451612" x1="0" y1="200" x2="750" y2="200"></line></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 53px; left: 214px; top: 321px;" data-block-id="fc4ead950c361ce7b20eba367d6ffcb5"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 21; text-align: left;" data-fragment-index="0">
+<p>OS</p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 464px; top: 212px;" data-block-id="b4e8e14358ab284c68aff0e84f4ec69a"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 22;" data-line-width="4px" data-fragment-index="5"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 413px; top: 301px;" data-block-id="aa71014f409c87adefa13f46a43bd73a"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="187" data-line-x2="41" data-line-y2="213" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 23;" data-line-width="2px" data-fragment-index="4"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="24" height="26" viewbox="17 187 24 26"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="187" x2="40" y2="212"></line><line stroke="#ffffff" stroke-width="2" x1="17" y1="187" x2="40" y2="212"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="2" transform="translate(40,212) rotate(137.291)" d="M 6 6 L 0 0 L -6 6"></path></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 441px; top: 301px;" data-block-id="8d4d76f5427b645890f8fecebd13a9b8"><div class="sl-block-content fragment" data-line-x1="64" data-line-y1="187" data-line-x2="41" data-line-y2="213" data-line-color="#ffffff" data-line-start-type="line-arrow" data-line-end-type="none" style="z-index: 24;" data-line-width="2px" data-fragment-index="6"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="23" height="26" viewbox="41 187 23 26"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="63" y1="188" x2="41" y2="213"></line><line stroke="#ffffff" stroke-width="2" x1="63" y1="188" x2="41" y2="213"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="2" transform="translate(63,188) rotate(221.496)" d="M -6 -6 L 0 0 L 6 -6"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 332px; top: 295px;" data-block-id="68376118f0abb7aab434a02ce0d6421f"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 25; text-align: left;" data-fragment-index="4">
+<p><span style="font-size:15px">Release GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 464px; top: 295px;" data-block-id="6498cd4d6ad41ceedc24070cca72cb6a"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 26; text-align: left;" data-fragment-index="6">
+<p><span style="font-size:15px">Acquire GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 464px; top: 247px;" data-block-id="8a106136115dfa0afe3447dd9bd55ba3"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="244" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 27;" data-line-width="5px" data-fragment-index="7"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="244" height="1" viewbox="0 200 244 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="237.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="237.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(237,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 102px; left: 532px; top: 247px;" data-block-id="576d4b0bb4a7a7ce4c45e2f1ce9d07af"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 28; text-align: left;" data-fragment-index="8">
+<p><span style="font-size:15px">run 100 ticks</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 708px; top: 212px;" data-block-id="24a22489bbfea650670885a9d9c7b208"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 29;" data-line-width="4px" data-fragment-index="9"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 752px; top: 212px;" data-block-id="717d0cea58c055c4c5774d91e51dda72"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 30;" data-line-width="4px" data-fragment-index="12"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 705px; top: 301px;" data-block-id="c1b8f57ea688aacfe5acb44ee5af9341"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="187" data-line-x2="41" data-line-y2="213" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 31;" data-line-width="2px" data-fragment-index="10"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="24" height="26" viewbox="17 187 24 26"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="187" x2="40" y2="212"></line><line stroke="#ffffff" stroke-width="2" x1="17" y1="187" x2="40" y2="212"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="2" transform="translate(40,212) rotate(137.291)" d="M 6 6 L 0 0 L -6 6"></path></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 733px; top: 301px;" data-block-id="5a6ef779dd3a114e738b5217603d2b6a"><div class="sl-block-content fragment" data-line-x1="64" data-line-y1="187" data-line-x2="41" data-line-y2="213" data-line-color="#ffffff" data-line-start-type="line-arrow" data-line-end-type="none" style="z-index: 32;" data-line-width="2px" data-fragment-index="11"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="23" height="26" viewbox="41 187 23 26"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="63" y1="188" x2="41" y2="213"></line><line stroke="#ffffff" stroke-width="2" x1="63" y1="188" x2="41" y2="213"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="2" transform="translate(63,188) rotate(221.496)" d="M -6 -6 L 0 0 L 6 -6"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 624px; top: 295px;" data-block-id="30f4ac877c968f712510bf5f7dbf4b7b"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 33; text-align: left;" data-fragment-index="10">
+<p><span style="font-size:15px">Release GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 756px; top: 295px;" data-block-id="4db8ca9c76fc7cb07e82f2447bf0d9be"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 34; text-align: left;" data-fragment-index="11">
+<p><span style="font-size:15px">Acquire GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 753px; top: 248px;" data-block-id="d6221260cd8765cde96f034146f30d7d"><div class="sl-block-content fragment" data-line-x1="7" data-line-y1="200" data-line-x2="145" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 35;" data-line-width="5px" data-fragment-index="13"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="138" height="1" viewbox="7 200 138 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="7.5" y1="200.5" x2="138.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="7.5" y1="200.5" x2="138.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(138,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 890px; top: 216px;" data-block-id="4c23731d507e568ed86bec505d7d0e78"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 36;" data-line-width="4px" data-fragment-index="15"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 891px; top: 301px;" data-block-id="16ba4204c13ecd3846aa07ea86163fba"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="187" data-line-x2="41" data-line-y2="213" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 37;" data-line-width="2px" data-fragment-index="16"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="24" height="26" viewbox="17 187 24 26"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="187" x2="40" y2="212"></line><line stroke="#ffffff" stroke-width="2" x1="17" y1="187" x2="40" y2="212"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="2" transform="translate(40,212) rotate(137.291)" d="M 6 6 L 0 0 L -6 6"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 903px; top: 276px;" data-block-id="35a870879880089fe02824648742a2ac"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 38; text-align: left;" data-fragment-index="16">
+<p><span style="font-size:15px">Release GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 943px; top: 386px;" data-block-id="ecfcca4d4ba85b9c60dd714441479d4d"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 39;" data-line-width="4px" data-fragment-index="18"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 920px; top: 347px;" data-block-id="c9ebdfcb38cdffbc5cd541b085292147"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="187" data-line-x2="41" data-line-y2="214" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 40;" data-line-width="2px" data-fragment-index="17"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="24" height="27" viewbox="17 187 24 27"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="187" x2="40" y2="213"></line><line stroke="#ffffff" stroke-width="2" x1="17" y1="187" x2="40" y2="213"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="2" transform="translate(40,213) rotate(138.366)" d="M 6 6 L 0 0 L -6 6"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 951px; top: 341px;" data-block-id="6c26a4c5a2a8f577ea8b63b4384f107d"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 41; text-align: left;" data-fragment-index="17">
+<p><span style="font-size:15px">Acquire GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 944px; top: 424px;" data-block-id="a0e4b020121eb8757aa88a72cad6f1ec"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="104" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 42;" data-line-width="5px" data-fragment-index="19"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="104" height="1" viewbox="0 200 104 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="97.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="97.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(97,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 46px; left: 391px; top: 165px;" data-block-id="2a38eaabb70e50a63776a72f1a14ed9b"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 43; text-align: left;" data-fragment-index="3">
+<p><span style="font-size:15px">check</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 46px; left: 687px; top: 165px;" data-block-id="138d713f26b85acfcb0c64cd091ff04f"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 44; text-align: left;" data-fragment-index="9">
+<p><span style="font-size:15px">check</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 46px; left: 867px; top: 165px;" data-block-id="0733d312b47be397e6d6ed1e7d7fbeac"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 45; text-align: left;" data-fragment-index="15">
+<p><span style="font-size:15px">check</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 102px; left: 767px; top: 249px;" data-block-id="d82eee06355b28d41a71bd0059ab3be0"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 46; text-align: left;" data-fragment-index="14">
+<p><span style="font-size:15px">run 100 ticks</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 583px; top: 432px;" data-block-id="82b60e9213cbdb85cd2c9918a3abf763"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 47; text-align: left;" data-fragment-index="21">
+<p><span style="font-size:1.0em">Idle</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 102px; left: 951px; top: 424px;" data-block-id="46410ec425d4991940ca7148a3e4f281"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 48; text-align: left;" data-fragment-index="20">
+<p><span style="font-size:15px">run 100 ticks</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" data-block-id="959ab8cb5ca52caa7e57c60e520c53ec" style="height: auto; min-width: 30px; min-height: 30px; width: 136px; left: 92px; top: 262px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 49;" data-fragment-index="0">
+<p><span style="font-size:0.7em">CPU 1</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 136px; left: 92px; top: 432px;" data-block-id="b8191e93508c21f3e6b68d54f4e161ca"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 51;" data-fragment-index="0">
+<p><span style="font-size:0.7em">CPU 1</span></p>
+</div></div></section><section data-id="651daefbbea733c0d045d0dadaa1bd3a"><div class="sl-block" data-block-type="text" style="width: 1120px; left: 80px; top: 62px; height: auto;" data-block-id="02d310aca1adb9ddf3132cbfaea529e5"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1 style="text-align:left"><span style="font-size:0.7em">Thread Thrashing</span></h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 140px; left: 107px; top: 228px;" data-block-id="e511fe67f6444f0e432a6977bb2d511c"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; text-align: left;" data-fragment-index="0">
+<p>Thread 1</p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 140px; left: 107px; top: 404px;" data-block-id="da301f0fd0b825acd145f9f8b86b253b"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; text-align: left;" data-fragment-index="0">
+<p>Thread 2</p>
+</div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1128px; left: 72px; top: 582px;" data-block-id="38ed5362cff6cab6095e837275660d34"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="21">When thread 2 wakes up, the GIL is already gone</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 254px; left: 1026px; top: 670px;" data-block-id="24478753b0a11784eb57c84e3d8b6ee8"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p><span style="font-size:0.5em">David Beazley <a href="https://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank">Understand GIL</a></span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 290px; top: 248px;" data-block-id="370bd26dcf64e7edf3a9f216b0596c1f"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="757" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 15;" data-line-style="dotted" data-line-width="3px" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="757" height="1" viewbox="0 200 757 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="3" stroke-dasharray="0 5.960629921259843" stroke-linecap="round" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 290px; top: 424px;" data-block-id="519ca68a35a20265e07dd44052e19802"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="757" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 16;" data-line-style="dotted" data-line-width="3px" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="757" height="1" viewbox="0 200 757 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="3" stroke-dasharray="0 5.960629921259843" stroke-linecap="round" x1="0.5" y1="200.5" x2="757.5" y2="200.5"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 290px; top: 248px;" data-block-id="9ccb60b9ec3eccbc1b40f40363a68631"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="117" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 17;" data-line-width="5px" data-fragment-index="1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="117" height="1" viewbox="0 200 117 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="110.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="110.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(110,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 102px; left: 298px; top: 248px;" data-block-id="cb397bc1c7f68c0411f64b3032c7db1a"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 18; text-align: left;" data-fragment-index="2">
+<p><span style="font-size:15px">run 100 ticks</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 413px; top: 212px;" data-block-id="1cc72ff855a30deaa58d9190fb0cd944"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 19;" data-line-width="4px" data-fragment-index="3"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 290px; top: 340px;" data-block-id="6f6a721378cebbb3abb13bd611197a48"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="750" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 20;" data-line-width="4px" data-line-style="dashed" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="750" height="1" viewbox="0 200 750 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="200" x2="750" y2="200"></line><line stroke="#ffffff" stroke-width="4" stroke-dasharray="11.903225806451612 11.903225806451612" x1="0" y1="200" x2="750" y2="200"></line></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 53px; left: 214px; top: 321px;" data-block-id="8dc9e0582fa58742b6d7bd978605b8fc"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 21; text-align: left;" data-fragment-index="0">
+<p>OS</p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 464px; top: 212px;" data-block-id="def7419e6c2e371c28cee3fe75ccd907"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 22;" data-line-width="4px" data-fragment-index="6"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 413px; top: 301px;" data-block-id="0ee1bded479224dd7c6ab7169e492aac"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="187" data-line-x2="41" data-line-y2="213" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 23;" data-line-width="2px" data-fragment-index="4"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="24" height="26" viewbox="17 187 24 26"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="187" x2="40" y2="212"></line><line stroke="#ffffff" stroke-width="2" x1="17" y1="187" x2="40" y2="212"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="2" transform="translate(40,212) rotate(137.291)" d="M 6 6 L 0 0 L -6 6"></path></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 441px; top: 301px;" data-block-id="d3e57860061bcfe881a47d390b8147b0"><div class="sl-block-content fragment" data-line-x1="64" data-line-y1="187" data-line-x2="41" data-line-y2="213" data-line-color="#ffffff" data-line-start-type="line-arrow" data-line-end-type="none" style="z-index: 24;" data-line-width="2px" data-fragment-index="5"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="23" height="26" viewbox="41 187 23 26"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="63" y1="188" x2="41" y2="213"></line><line stroke="#ffffff" stroke-width="2" x1="63" y1="188" x2="41" y2="213"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="2" transform="translate(63,188) rotate(221.496)" d="M -6 -6 L 0 0 L 6 -6"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 332px; top: 295px;" data-block-id="5111f07891e4d079f66f24112ba86dc6"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 25; text-align: left;" data-fragment-index="4">
+<p><span style="font-size:15px">Release GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 464px; top: 295px;" data-block-id="60692611583515c69d1307147a1e8c39"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 26; text-align: left;" data-fragment-index="5">
+<p><span style="font-size:15px">Acquire GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 464px; top: 247px;" data-block-id="bba927035e66261d83f045c944d3344e"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="244" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 27;" data-line-width="5px" data-fragment-index="7"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="244" height="1" viewbox="0 200 244 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="237.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="237.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(237,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 102px; left: 532px; top: 247px;" data-block-id="63150fb0b23fb7e47868002a2f2e84eb"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 28; text-align: left;" data-fragment-index="8">
+<p><span style="font-size:15px">run 100 ticks</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 708px; top: 212px;" data-block-id="e843229ae83a20f4303ed11416e0c716"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 29;" data-line-width="4px" data-fragment-index="9"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 752px; top: 212px;" data-block-id="23e5422ac5c5aa90502cf81a84efedc0"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 30;" data-line-width="4px" data-fragment-index="12"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 705px; top: 301px;" data-block-id="47d9d32f25e3e0efc856484382ed3b69"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="187" data-line-x2="41" data-line-y2="213" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 31;" data-line-width="2px" data-fragment-index="10"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="24" height="26" viewbox="17 187 24 26"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="187" x2="40" y2="212"></line><line stroke="#ffffff" stroke-width="2" x1="17" y1="187" x2="40" y2="212"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="2" transform="translate(40,212) rotate(137.291)" d="M 6 6 L 0 0 L -6 6"></path></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 733px; top: 301px;" data-block-id="863046f53ed1899b6ea9bbc69fa23105"><div class="sl-block-content fragment" data-line-x1="64" data-line-y1="187" data-line-x2="41" data-line-y2="213" data-line-color="#ffffff" data-line-start-type="line-arrow" data-line-end-type="none" style="z-index: 32;" data-line-width="2px" data-fragment-index="11"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="23" height="26" viewbox="41 187 23 26"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="63" y1="188" x2="41" y2="213"></line><line stroke="#ffffff" stroke-width="2" x1="63" y1="188" x2="41" y2="213"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="2" transform="translate(63,188) rotate(221.496)" d="M -6 -6 L 0 0 L 6 -6"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 624px; top: 295px;" data-block-id="4ca479c878a6a3236bffb694a8a9c453"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 33; text-align: left;" data-fragment-index="10">
+<p><span style="font-size:15px">Release GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 756px; top: 295px;" data-block-id="1406746905ccd91187a65488e728c15a"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 34; text-align: left;" data-fragment-index="11">
+<p><span style="font-size:15px">Acquire GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 753px; top: 248px;" data-block-id="7c7c027a14e31471eccf03fa52b5d8be"><div class="sl-block-content fragment" data-line-x1="7" data-line-y1="200" data-line-x2="145" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 35;" data-line-width="5px" data-fragment-index="13"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="138" height="1" viewbox="7 200 138 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="7.5" y1="200.5" x2="138.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="7.5" y1="200.5" x2="138.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(138,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 890px; top: 216px;" data-block-id="900052a848d616580d127859869891b4"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 36;" data-line-width="4px" data-fragment-index="15"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 891px; top: 301px;" data-block-id="7fc894fc891ef461e1d3305641d71b26"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="187" data-line-x2="41" data-line-y2="213" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 37;" data-line-width="2px" data-fragment-index="16"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="24" height="26" viewbox="17 187 24 26"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="187" x2="40" y2="212"></line><line stroke="#ffffff" stroke-width="2" x1="17" y1="187" x2="40" y2="212"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="2" transform="translate(40,212) rotate(137.291)" d="M 6 6 L 0 0 L -6 6"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 903px; top: 276px;" data-block-id="611e4e20b9d4260c6c046cee541ec989"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 38; text-align: left;" data-fragment-index="16">
+<p><span style="font-size:15px">Release GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 943px; top: 386px;" data-block-id="0a1b19bc838a45f1b4d413a1d2f4c65e"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 39;" data-line-width="4px" data-fragment-index="18"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 920px; top: 347px;" data-block-id="3e96b368306b2eb6af9f5067e1e0e93e"><div class="sl-block-content fragment" data-line-x1="17" data-line-y1="187" data-line-x2="41" data-line-y2="214" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="line-arrow" style="z-index: 40;" data-line-width="2px" data-fragment-index="17"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="24" height="27" viewbox="17 187 24 27"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="17" y1="187" x2="40" y2="213"></line><line stroke="#ffffff" stroke-width="2" x1="17" y1="187" x2="40" y2="213"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="2" transform="translate(40,213) rotate(138.366)" d="M 6 6 L 0 0 L -6 6"></path></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 951px; top: 341px;" data-block-id="d1d1e9379dd82652e4389440f35d6387"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 41; text-align: left;" data-fragment-index="17">
+<p><span style="font-size:15px">Acquire GIL</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 944px; top: 424px;" data-block-id="ff2a8dad733e5c3bc96866ba39c7c2af"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="200" data-line-x2="104" data-line-y2="200" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 42;" data-line-width="5px" data-fragment-index="19"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="104" height="1" viewbox="0 200 104 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0.5" y1="200.5" x2="97.5" y2="200.5"></line><line stroke="#ffffff" stroke-width="5" x1="0.5" y1="200.5" x2="97.5" y2="200.5"></line><polygon fill="#ffffff" transform="translate(97,200) rotate(90)" points="0,-7.5 7.5,7.5 -7.5,7.5"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 46px; left: 391px; top: 165px;" data-block-id="d58f9ad2e6353110d02613ca5f9f7d48"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 43; text-align: left;" data-fragment-index="3">
+<p><span style="font-size:15px">check</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 46px; left: 687px; top: 165px;" data-block-id="69632ef54b84eb2b6f7485b20b4c483c"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 44; text-align: left;" data-fragment-index="9">
+<p><span style="font-size:15px">check</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 46px; left: 867px; top: 165px;" data-block-id="e4a5ffece78cfff72651fdf2c7f40c32"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 45; text-align: left;" data-fragment-index="15">
+<p><span style="font-size:15px">check</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 102px; left: 767px; top: 249px;" data-block-id="6c9e5b77e4e89b0bb43c5921773e00be"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 46; text-align: left;" data-fragment-index="14">
+<p><span style="font-size:15px">run 100 ticks</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 102px; left: 951px; top: 424px;" data-block-id="5485e3f30d26fd5fe3394ac86cc49e76"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 47; text-align: left;" data-fragment-index="20">
+<p><span style="font-size:15px">run 100 ticks</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 136px; left: 92px; top: 262px;" data-block-id="cf36d844e36ae86193c8479fc1f0c519"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 48;" data-fragment-index="0">
+<p><span style="font-size:0.7em">CPU 1</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 136px; left: 92px; top: 432px;" data-block-id="0b04897d071a5ec23275f65129d61a64"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 49;" data-fragment-index="0">
+<p><span style="font-size:0.7em">CPU 2</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 412px; top: 387px;" data-block-id="42dd58d1383a7b8ef7321faf360112c1"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 50;" data-line-width="4px" data-fragment-index="3"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 464px; top: 386px;" data-block-id="416d256f7a4b48d397a0acd086a26e28"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 51;" data-line-width="4px" data-fragment-index="6"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 709px; top: 387px;" data-block-id="b202decc3640b61f5adc2ba19ddc9abc"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 52;" data-line-width="4px" data-fragment-index="9"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 752px; top: 386px;" data-block-id="5491479d5f37c98a39341192718efd2b"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 53;" data-line-width="4px" data-fragment-index="12"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 51px; left: 386px; top: 462px;" data-block-id="fc4f2ba3a56d08430ee463a7c1016f8b"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 54; text-align: center;" data-fragment-index="3">
+<p><span style="font-size:15px">Wake</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 441px; top: 465px;" data-block-id="c52918b617264c13d0df87fad8023697"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 55; text-align: center; line-height: 0.468;" data-has-line-height="" data-fragment-index="6">
+<p><span style="font-size:15px">Acquire GIL</span></p>
+
+<p><span style="font-size:15px">(fails)</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 51px; left: 682px; top: 462px;" data-block-id="3b11e5d28f80b02e944f61a7b69d7c6c"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 56; text-align: center;" data-fragment-index="9">
+<p><span style="font-size:15px">Wake</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 741px; top: 471px;" data-block-id="964649b4b1cbaa63011e82a054870615"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 57; text-align: center; line-height: 0.468;" data-has-line-height="" data-fragment-index="12">
+<p><span style="font-size:15px">Acquire GIL</span></p>
+
+<p><span style="font-size:15px">(fails)</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 889px; top: 386px;" data-block-id="1d21f5da34f21a1abf409b1c7c192e21"><div class="sl-block-content fragment" data-line-x1="0" data-line-y1="18" data-line-x2="0" data-line-y2="-58" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="none" style="z-index: 58;" data-line-width="4px" data-fragment-index="15"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="76" viewbox="0 -58 1 76"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="0" y1="18" x2="0" y2="-58"></line><line stroke="#ffffff" stroke-width="4" x1="0" y1="18" x2="0" y2="-58"></line></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 51px; left: 862px; top: 462px;" data-block-id="f024abfa019968d89dcec3e328572209"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 59; text-align: center;" data-fragment-index="15">
+<p><span style="font-size:15px">Wake</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 81px; left: 921px; top: 471px;" data-block-id="789bc2366e96a6d957ba7c455fd68c80"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 60; text-align: center; line-height: 0.468;" data-has-line-height="" data-fragment-index="18">
+<p><span style="font-size:15px">Acquire GIL</span></p>
+
+<p><span style="font-size:15px">(success)</span></p>
+</div></div></section><section data-id="d131890ff8497adbbfcd3bea5b9a9f90"><div class="sl-block" data-block-type="text" style="width: 1120px; left: 80px; top: 62px; height: auto;" data-block-id="2a4ff2036659e8f2271bc7ee18d3ae95"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1 style="text-align:left"><span style="font-size:0.7em">A Better GIL after Python 3.2</span></h1>
+</div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1128px; left: 72px; top: 165px;" data-block-id="459a87b51d966458fddc1bb59649777d"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="0">It aims to fix thread thrashing</li>
+	<li class="fragment" data-fragment-index="1">Current thread will voluntarily release the GIL if it runs out of TIMEOUTs</li>
+	<li class="fragment" data-fragment-index="2">If other thread acquire the GIL, the current thread will release the GIL after 5ms</li>
+	<li class="fragment" data-fragment-index="3">A thread runs until <span style="color:#FFA07A">`gil_drop_request`</span> gets set to 1</li>
+</ul>
+</div></div></section><section data-id="5f2b09d10fbcb878a7f3a83a97f53685"><div class="sl-block" data-block-type="text" style="width: 1076px; left: 102px; top: 274px; height: auto;" data-block-id="3fb602f1f8330b484eda9473dacb78d2"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1>But, the GIL is still there...</h1>
+</div></div></section><section data-id="cc16ee3467170d18e36ce08ce762bd08"><div class="sl-block" data-block-type="text" style="width: 1076px; left: 102px; top: 274px; height: auto;" data-block-id="3e8bdf558962a2314d6cb738c7899d16"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1>Part III</h1>
+
+<p>Remove GIL?</p>
+</div></div></section><section data-id="cf7b91aeaafa2599ce948052df710fa9"><div class="sl-block" data-block-type="text" style="width: 476px; left: 84px; top: 66px; height: auto;" data-block-id="635fc7ee4f2cfd1cb89b022fa50303de"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">Why GIL?</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1116px; left: 84px; top: 170px;" data-block-id="f47478f192f730f28e207de93fbd0cda"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="0">There was no multi-core computer when Python was created</li>
+	<li class="fragment" data-fragment-index="1">Python is designed to be easy-to-use, so you don't need to care about the memory stuff</li>
+	<li class="fragment" data-fragment-index="2">GIL prevents deadlocks (as there is only one lock)</li>
+	<li class="fragment" data-fragment-index="3">GIL provides a performance increase to single-threaded programs as only one lock needs to be managed</li>
+	<li class="fragment" data-fragment-index="4">CPython uses Reference Counting</li>
+</ul>
+</div></div></section><section data-id="f62268ce4b5dc942df2b7721735c7d9c"><div class="sl-block" data-block-type="text" style="width: 1116px; left: 84px; top: 66px; height: auto;" data-block-id="333b76d581b304264cf030844e0b2156"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12;">
+<h1 style="text-align:left">Before Removing the GIL...</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1116px; left: 84px; top: 170px;" data-block-id="61b5d31e977eed8a51d7ea32cfab1d0e"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ol>
+	<li class="fragment" data-fragment-index="0">Reference Counting</li>
+	<li class="fragment" data-fragment-index="1">Globals and statics in the interpreter</li>
+	<li class="fragment" data-fragment-index="2">The C extension parallelism and reentrancy issues need to be handled as do places in the code where atomicity is required</li>
+	<li class="fragment" data-fragment-index="3">You can't breaking all of the C extensions</li>
+</ol>
+</div></div>
+<div class="sl-block" data-block-type="text" data-block-id="0ca00cafc6dd2c8259bcc369baa2b185" style="height: auto; min-width: 30px; min-height: 30px; width: 943px; left: 171px; top: 492px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;" data-fragment-index="4">
+<blockquote>
+<p>I'd welcome a set of patches into Py3k only if the performance for a single-threaded program (and for a multi-threaded but I/O-bound program) does not decrease.</p>
+
+<p>-- Guido van Rossum</p>
+</blockquote>
+</div></div></section><section data-id="ffe11a87e1b8b4ffff9a3b9ca66783fe"><div class="sl-block" data-block-type="text" style="width: 1116px; left: 84px; top: 66px; height: auto;" data-block-id="4511e164068b0ba14098c8305669ea6f"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">Related Works</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1116px; left: 84px; top: 170px;" data-block-id="8a6928c12e8da16ce6b131f11e609d73"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="0">1995, Greg Stein, a fork of Python 1.5</li>
+	<li class="fragment" data-fragment-index="1">Larry Hastings' Gilectomy (on hold)</li>
+	<li class="fragment" data-fragment-index="2">Many other implementations...</li>
+</ul>
+</div></div></section><section data-id="76341c9e578c0f208ec51afbf91ece7b"><div class="sl-block" data-block-type="text" style="width: 1076px; left: 102px; top: 274px; height: auto;" data-block-id="1d43e36abc103cce5ae6f0012df41b54"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1>It's Hard!!!</h1>
+</div></div></section><section data-id="ceb6dea175aee116275f706d0eab9248"><div class="sl-block" data-block-type="text" style="width: 1116px; left: 84px; top: 66px; height: auto;" data-block-id="c576f61a0b75a113938e44da69c1cc17"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12;">
+<h1 style="text-align:left">But, Who Cares?</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1051px; left: 84px; top: 170px;" data-block-id="c9b8799be1f0e7d199fe939ee8e91491"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="0">Users with threaded, CPU bound Python code</li>
+	<li class="fragment" data-fragment-index="3">Basically no one else</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="text" data-block-id="42a45ea25ee9da48eed925f40d5b922d" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 622px; top: 413px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;" data-fragment-index="2">
+<p>Use C extensions!</p>
+</div></div>
+<div class="sl-block" data-block-type="line" data-block-id="c5398d592e2244014da092b926ad631b" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 745px; top: 246px;"><div class="sl-block-content fragment" data-line-x1="363" data-line-y1="145" data-line-x2="200" data-line-y2="0" data-line-color="#ffffff" data-line-start-type="line-arrow" data-line-end-type="none" style="z-index: 14;" data-line-width="4px" data-fragment-index="1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="163" height="145" viewbox="200 0 163 145"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="361" y1="143" x2="200" y2="0"></line><line stroke="#ffffff" stroke-width="4" x1="361" y1="143" x2="200" y2="0"></line><path style="fill: rgba(0,0,0,0);" stroke="#ffffff" stroke-width="4" transform="translate(361,143) rotate(-48.345)" d="M -9 -9 L 0 0 L 9 -9"></path></svg></div></div></section><section data-id="6bf0daaf2b9571a9627b2f3cc7fe711b"><div class="sl-block" data-block-type="text" style="width: 1116px; left: 84px; top: 66px; height: auto;" data-block-id="f112ba16a56c8dff12668f98410d6d2a"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">Other Solutions</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1051px; left: 84px; top: 170px;" data-block-id="e6c00e51246fc3203e3ab87a02a803f7"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li>Multi-processing (not recommend)</li>
+	<li>C extension modules
+	<ul>
+		<li>Rewrite CPU bound code in C (you need to control memory by yourself)</li>
+		<li>Release the GIL around that code</li>
+	</ul>
+	</li>
+	<li>Corountine</li>
+</ul>
+</div></div></section><section data-id="b8fc1be5cb6ceb8ab8b15d60406790c6"><div class="sl-block" data-block-type="text" style="width: 1076px; left: 102px; top: 274px; height: auto;" data-block-id="07737dfbb18d99888c4cf0a46dc90036"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1>Part IV</h1>
+
+<p>The Future</p>
+</div></div></section><section data-id="42d5b5c4e2adc82572ae7192eb52d15d"><div class="sl-block" data-block-type="text" style="width: 1116px; left: 84px; top: 66px; height: auto;" data-block-id="ba3c9aaceb81d3513d3fcdd5722421b1"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">PEP 554</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1116px; left: 84px; top: 170px;" data-block-id="7bb074445f452120770d9ff7d6fee8fb"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="0">Multiple Interpreters in the Stdlib</li>
+	<li class="fragment" data-fragment-index="1">By Eric Snow (<a href="https://www.youtube.com/watch?v=7RlqbHCCVyc" target="_blank">to GIL or not to GIL: the Future of Multi-Core CPython</a>)</li>
+	<li class="fragment" data-fragment-index="2">Will release in CPython 3.9 (maybe)</li>
+	<li class="fragment" data-fragment-index="3">CPython has supported multiple interpreters in the same process since version 1.5 (1997) via the C-API</li>
+	<li class="fragment" data-fragment-index="4">Introduce the stdlib interpreters modules, high-level interface to subinterpreters</li>
+	<li class="fragment" data-fragment-index="5">Functionality for sharing data between interpreters (channel)</li>
+</ul>
+</div></div></section><section data-id="1fe190a241948589c6034a0c2ed54224"><div class="sl-block" data-block-type="text" style="width: 1116px; left: 80px; top: 61px; height: auto;" data-block-id="90a7d30757b4e633e017631dc0bb92f2"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12;">
+<h1 style="text-align:left">Subinterpreters Model</h1>
+</div></div>
+
+
+
+<div class="sl-block" data-block-type="shape" data-block-id="eaf3d2d8f9a59db87135b5a0cd0a21e0" style="min-width: 4px; min-height: 4px; width: 167px; height: 91px; left: 522px; top: 184px;"><div class="sl-block-content fragment" data-shape-type="rect" data-shape-fill-color="rgb(74, 134, 232)" data-shape-stretch="true" style="z-index: 13;" data-shape-corner-radius="14px" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 167 91"><rect width="167" height="91" rx="14" ry="14" class="shape-element" fill="rgb(74, 134, 232)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="8328829e02d9a680fe7e7c3ce292f427" style="height: auto; min-width: 30px; min-height: 30px; width: 145px; left: 534px; top: 210px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14; color: rgb(255, 255, 255);" data-fragment-index="0">
+<p>Process</p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 167px; height: 90px; left: 320px; top: 331px;" data-block-id="ad1775fd7df7348b415e95c97a5d4698"><div class="sl-block-content fragment" data-shape-type="rect" data-shape-fill-color="rgb(74, 134, 232)" data-shape-stretch="true" style="z-index: 15;" data-shape-corner-radius="14px" data-fragment-index="2"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 167 90"><rect width="167" height="90" rx="14" ry="14" class="shape-element" fill="rgb(74, 134, 232)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 156px; left: 326px; top: 358px;" data-block-id="309ccc13b54998e9105f3d7db19f4866"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 16; color: rgb(255, 255, 255);" data-fragment-index="2">
+<p>Interpreter</p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 167px; height: 90px; left: 713px; top: 332px;" data-block-id="8e663e7fd7ee0ba2d87e67e5405dff43"><div class="sl-block-content fragment" data-shape-type="rect" data-shape-fill-color="rgb(74, 134, 232)" data-shape-stretch="true" style="z-index: 17;" data-shape-corner-radius="14px" data-fragment-index="3"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 167 90"><rect width="167" height="90" rx="14" ry="14" class="shape-element" fill="rgb(74, 134, 232)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 167px; left: 713px; top: 358px;" data-block-id="859f81117669ce85da1987579efb6f75"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 18; color: rgb(255, 255, 255);" data-fragment-index="3">
+<p>Interpreter</p>
+</div></div>
+<div class="sl-block" data-block-type="text" data-block-id="20c182733071379652a715fdea73694f" style="height: auto; min-width: 30px; min-height: 30px; width: 59px; left: 371px; top: 331px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 19;" data-fragment-index="2">
+<p><span style="font-size:0.7em"><span style="color:#FFA07A">GIL</span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 59px; left: 767px; top: 332px;" data-block-id="eb5cec81bb91de9102d5b4de4feb7d02"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 20;" data-fragment-index="3">
+<p><span style="font-size:0.7em"><span style="color:#FFA07A">GIL</span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 167px; height: 91px; left: 192px; top: 499px;" data-block-id="6d5f4e7ea7df63bdc0a0f36244640be4"><div class="sl-block-content fragment" data-shape-type="rect" data-shape-fill-color="rgb(74, 134, 232)" data-shape-stretch="true" style="z-index: 21;" data-shape-corner-radius="14px" data-fragment-index="5"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 167 91"><rect width="167" height="91" rx="14" ry="14" class="shape-element" fill="rgb(74, 134, 232)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 145px; left: 203px; top: 525px;" data-block-id="6f27c5093c02d45719ac48da40fe52a0"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 22; color: rgb(255, 255, 255);" data-fragment-index="5">
+<p>Thread</p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 167px; height: 91px; left: 443px; top: 499px;" data-block-id="6f123fe7c2af14ee65aba54214ca21d0"><div class="sl-block-content fragment" data-shape-type="rect" data-shape-fill-color="rgb(74, 134, 232)" data-shape-stretch="true" style="z-index: 23;" data-shape-corner-radius="14px" data-fragment-index="7"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 167 91"><rect width="167" height="91" rx="14" ry="14" class="shape-element" fill="rgb(74, 134, 232)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 145px; left: 454px; top: 525px;" data-block-id="05287eb22fcce948439566ee385a32e5"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 24; color: rgb(255, 255, 255);" data-fragment-index="7">
+<p>Thread</p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 167px; height: 91px; left: 713px; top: 499px;" data-block-id="652102d901438e17c6c3d7c98e28494f"><div class="sl-block-content fragment" data-shape-type="rect" data-shape-fill-color="rgb(74, 134, 232)" data-shape-stretch="true" style="z-index: 25;" data-shape-corner-radius="14px" data-fragment-index="9"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 167 91"><rect width="167" height="91" rx="14" ry="14" class="shape-element" fill="rgb(74, 134, 232)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 145px; left: 725px; top: 525px;" data-block-id="64e10045d631e887aaee8b815eee79c5"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 26; color: rgb(255, 255, 255);" data-fragment-index="9">
+<p>Thread</p>
+</div></div>
+<div class="sl-block" data-block-type="line" data-block-id="1ec92012e78025b072b0f10f1e5255b6" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 404px; top: 284px;"><div class="sl-block-content fragment" data-line-x1="2" data-line-y1="217" data-line-x2="-195" data-line-y2="261" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 27;" data-line-width="4px" data-fragment-index="1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="197" height="44" viewbox="-195 217 197 44"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="2" y1="217" x2="-189" y2="260"></line><line stroke="#ffffff" stroke-width="4" x1="2" y1="217" x2="-189" y2="260"></line><polygon fill="#ffffff" transform="translate(-189,260) rotate(257.41)" points="0,-6 6,6 -6,6"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 603px; top: 284px;" data-block-id="39257a29b8e9a04abb2c0ed45cf3d342"><div class="sl-block-content fragment" data-line-x1="-6" data-line-y1="207" data-line-x2="188" data-line-y2="251" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 28;" data-line-width="4px" data-fragment-index="3"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="194" height="44" viewbox="-6 207 194 44"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="-6" y1="207" x2="182" y2="250"></line><line stroke="#ffffff" stroke-width="4" x1="-6" y1="207" x2="182" y2="250"></line><polygon fill="#ffffff" transform="translate(182,250) rotate(102.779)" points="0,-6 6,6 -6,6"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 276px; top: 422px;" data-block-id="67edfcddb7019aaf9ad9061a809379a3"><div class="sl-block-content fragment" data-line-x1="2" data-line-y1="217" data-line-x2="-126" data-line-y2="294" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 29;" data-line-width="4px" data-fragment-index="4"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="128" height="77" viewbox="-126 217 128 77"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="2" y1="217" x2="-121" y2="291"></line><line stroke="#ffffff" stroke-width="4" x1="2" y1="217" x2="-121" y2="291"></line><polygon fill="#ffffff" transform="translate(-121,291) rotate(238.97)" points="0,-6 6,6 -6,6"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 404px; top: 422px;" data-block-id="b0e8ac562c6d1fb8da78e6f28b1f6a04"><div class="sl-block-content fragment" data-line-x1="-8" data-line-y1="207" data-line-x2="111" data-line-y2="284" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 30;" data-line-width="4px" data-fragment-index="6"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="119" height="77" viewbox="-8 207 119 77"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="-8" y1="207" x2="106" y2="281"></line><line stroke="#ffffff" stroke-width="4" x1="-8" y1="207" x2="106" y2="281"></line><polygon fill="#ffffff" transform="translate(106,281) rotate(122.905)" points="0,-6 6,6 -6,6"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 797px; top: 422px;" data-block-id="818b3cac96a0aa7420efb4f92b1e2242"><div class="sl-block-content fragment" data-line-x1="2" data-line-y1="217" data-line-x2="2" data-line-y2="294" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 31;" data-line-width="4px" data-fragment-index="8"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="77" viewbox="2 217 1 77"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="2" y1="217" x2="2" y2="288"></line><line stroke="#ffffff" stroke-width="4" x1="2" y1="217" x2="2" y2="288"></line><polygon fill="#ffffff" transform="translate(2,288) rotate(180)" points="0,-6 6,6 -6,6"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1051px; left: 80px; top: 632px;" data-block-id="556dcc5708871e52e682dc7e00b6a8d9"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 32; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="10">Sub-interpreter can't access other sub-interpreters' variables</li>
+</ul>
+</div></div></section><section data-id="90b9ec6a3c0b7ca8cb407d3a1be3c1d1"><div class="sl-block" data-block-type="text" style="width: 1116px; left: 84px; top: 66px; height: auto;" data-block-id="f03b99b177727dfe294535b43e9ac90f"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">How to Sharing Data?</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1116px; left: 84px; top: 170px;" data-block-id="9fb4356df91968874f4b6446fba70ec0"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="0">A mechanism centers around "channels"</li>
+	<li class="fragment" data-fragment-index="1">Similiar to queues and pipes</li>
+	<li class="fragment" data-fragment-index="2">Objects are not shared between iterpreters since they are tied to the interpreter in which they were created</li>
+	<li class="fragment" data-fragment-index="3">Only the following types will be supported fo sharing:
+	<ul>
+		<li class="fragment" data-fragment-index="4">None</li>
+		<li class="fragment" data-fragment-index="5">bytes</li>
+		<li class="fragment" data-fragment-index="6">str</li>
+		<li class="fragment" data-fragment-index="7">int</li>
+	</ul>
+	</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="text" data-block-id="d28330ef4e3c2c78ee71aa1a177ecd40" style="height: auto; min-width: 30px; min-height: 30px; width: 403px; left: 308px; top: 469px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="8">PEP 3118 buffer objects</li>
+	<li class="fragment" data-fragment-index="9">PEP 554 channels</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 927px; left: 320px; top: 627px;" data-block-id="603fd6ccb83004b462de634dac82e0ef"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14; text-align: left; line-height: 1.95;" data-has-line-height="" data-fragment-index="10">
+<p class="visible" style="text-align: center;">Support for other basic types (e.g. bool, float) will be added later</p>
+</div></div></section><section data-id="d39dc32970bd2cab65e9d48c08349d7b"><div class="sl-block" data-block-type="text" style="width: 1116px; left: 80px; top: 61px; height: auto;" data-block-id="e8b626909899df72cd347e0b6c59b7a0"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1 style="text-align:left">How to Sharing Data</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="shape" style="width: 167px; height: 91px; left: 522px; top: 216px;" data-block-id="53619a8bf7c7ff883e6121a2665e866b"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgb(74, 134, 232)" data-shape-stretch="true" style="z-index: 11;" data-shape-corner-radius="14px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 167 91"><rect width="167" height="91" rx="14" ry="14" class="shape-element" fill="rgb(74, 134, 232)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 145px; left: 534px; top: 242px;" data-block-id="c608dbd4a3d84169d60123cd35e88dd9"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; color: rgb(255, 255, 255);">
+<p>Process</p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="width: 167px; height: 90px; left: 320px; top: 363px;" data-block-id="09af76c53a2068c100cadcc8b51319fc"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgb(74, 134, 232)" data-shape-stretch="true" style="z-index: 13;" data-shape-corner-radius="14px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 167 90"><rect width="167" height="90" rx="14" ry="14" class="shape-element" fill="rgb(74, 134, 232)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 156px; left: 326px; top: 390px;" data-block-id="a9131f546e0dd550441122559ee064ac"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14; color: rgb(255, 255, 255);">
+<p>Interpreter</p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="width: 167px; height: 90px; left: 713px; top: 364px;" data-block-id="85ca4e45bca0c5d5acd96ae51bb7ee3c"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgb(74, 134, 232)" data-shape-stretch="true" style="z-index: 15;" data-shape-corner-radius="14px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 167 90"><rect width="167" height="90" rx="14" ry="14" class="shape-element" fill="rgb(74, 134, 232)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 167px; left: 713px; top: 390px;" data-block-id="d31d686dd9467682c32e4a2123902a66"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 16; color: rgb(255, 255, 255);">
+<p>Interpreter</p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 59px; left: 371px; top: 363px;" data-block-id="371421e8f7f46a04e186d32d595a6848"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17;">
+<p><span style="font-size:0.7em"><span style="color:#FFA07A">GIL</span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 59px; left: 767px; top: 364px;" data-block-id="d1e6235d94a15bd98de3d329563c09de"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 18;">
+<p><span style="font-size:0.7em"><span style="color:#FFA07A">GIL</span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="width: 167px; height: 91px; left: 192px; top: 531px;" data-block-id="735d1de2b0d1378ba1f526751fbcd816"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgb(74, 134, 232)" data-shape-stretch="true" style="z-index: 19;" data-shape-corner-radius="14px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 167 91"><rect width="167" height="91" rx="14" ry="14" class="shape-element" fill="rgb(74, 134, 232)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 145px; left: 203px; top: 557px;" data-block-id="16c62f22e8dc69c034979e5c9a27b4cf"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 20; color: rgb(255, 255, 255);">
+<p>Thread</p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="width: 167px; height: 91px; left: 443px; top: 531px;" data-block-id="7339b10201695163c5875f2b0c9e6989"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgb(74, 134, 232)" data-shape-stretch="true" style="z-index: 21;" data-shape-corner-radius="14px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 167 91"><rect width="167" height="91" rx="14" ry="14" class="shape-element" fill="rgb(74, 134, 232)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 145px; left: 454px; top: 557px;" data-block-id="1853c22d69640a6ec3b9ea15c995aa56"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 22; color: rgb(255, 255, 255);">
+<p>Thread</p>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="width: 167px; height: 91px; left: 713px; top: 531px;" data-block-id="7637f15ed453586a3797b52e76968915"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgb(74, 134, 232)" data-shape-stretch="true" style="z-index: 23;" data-shape-corner-radius="14px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 167 91"><rect width="167" height="91" rx="14" ry="14" class="shape-element" fill="rgb(74, 134, 232)"></rect></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 145px; left: 725px; top: 557px;" data-block-id="85786f96828a44dacebf7e4bd0c0fcb6"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 24; color: rgb(255, 255, 255);">
+<p>Thread</p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 404px; top: 316px;" data-block-id="3b401dce3ba025ddb2d7208c5230d06e"><div class="sl-block-content" data-line-x1="2" data-line-y1="217" data-line-x2="-195" data-line-y2="261" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 25;" data-line-width="4px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="197" height="44" viewbox="-195 217 197 44"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="2" y1="217" x2="-189" y2="260"></line><line stroke="#ffffff" stroke-width="4" x1="2" y1="217" x2="-189" y2="260"></line><polygon fill="#ffffff" transform="translate(-189,260) rotate(257.41)" points="0,-6 6,6 -6,6"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 603px; top: 316px;" data-block-id="7ec2ab1256e10e417a4fbedfb91f2fdb"><div class="sl-block-content" data-line-x1="-6" data-line-y1="207" data-line-x2="188" data-line-y2="251" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 26;" data-line-width="4px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="194" height="44" viewbox="-6 207 194 44"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="-6" y1="207" x2="182" y2="250"></line><line stroke="#ffffff" stroke-width="4" x1="-6" y1="207" x2="182" y2="250"></line><polygon fill="#ffffff" transform="translate(182,250) rotate(102.779)" points="0,-6 6,6 -6,6"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 276px; top: 454px;" data-block-id="38edbd382dc54e5d67ddf8347bbdc012"><div class="sl-block-content" data-line-x1="2" data-line-y1="217" data-line-x2="-126" data-line-y2="294" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 27;" data-line-width="4px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="128" height="77" viewbox="-126 217 128 77"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="2" y1="217" x2="-121" y2="291"></line><line stroke="#ffffff" stroke-width="4" x1="2" y1="217" x2="-121" y2="291"></line><polygon fill="#ffffff" transform="translate(-121,291) rotate(238.97)" points="0,-6 6,6 -6,6"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 404px; top: 454px;" data-block-id="9438c3d5e2c9669afa3e951d789efc3b"><div class="sl-block-content" data-line-x1="-8" data-line-y1="207" data-line-x2="111" data-line-y2="284" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 28;" data-line-width="4px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="119" height="77" viewbox="-8 207 119 77"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="-8" y1="207" x2="106" y2="281"></line><line stroke="#ffffff" stroke-width="4" x1="-8" y1="207" x2="106" y2="281"></line><polygon fill="#ffffff" transform="translate(106,281) rotate(122.905)" points="0,-6 6,6 -6,6"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 797px; top: 454px;" data-block-id="fb0fdbc0c94f334068e8674697e7a63b"><div class="sl-block-content" data-line-x1="2" data-line-y1="217" data-line-x2="2" data-line-y2="294" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 29;" data-line-width="4px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="77" viewbox="2 217 1 77"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="2" y1="217" x2="2" y2="288"></line><line stroke="#ffffff" stroke-width="4" x1="2" y1="217" x2="2" y2="288"></line><polygon fill="#ffffff" transform="translate(2,288) rotate(180)" points="0,-6 6,6 -6,6"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="shape" data-block-id="ca1fa7db21acbfc8a26793947b9fd8b7" style="min-width: 4px; min-height: 4px; width: 157px; height: 83px; left: 522px; top: 371px;"><div class="sl-block-content fragment" data-shape-type="circle" data-shape-fill-color="rgb(246, 178, 107)" data-shape-stretch="true" style="z-index: 31;" data-fragment-index="1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 157 83"><ellipse rx="78.5" ry="41.5" cx="78.5" cy="41.5" class="shape-element" fill="rgb(246, 178, 107)"></ellipse></svg></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="95f680b9496e965953aac577e8da8bbd" style="height: auto; min-width: 30px; min-height: 30px; width: 157px; left: 522px; top: 389px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 32;" data-fragment-index="1">
+<p><span style="font-size:0.5em">Channel</span></p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 489px; top: 413px;" data-block-id="f4cc88ff7bfc2e0a4cc12cc02bf53cdf"><div class="sl-block-content fragment" data-line-x1="2" data-line-y1="217" data-line-x2="40" data-line-y2="217" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 33;" data-line-width="4px" data-fragment-index="0"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="38" height="1" viewbox="2 217 38 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="2" y1="217" x2="34" y2="217"></line><line stroke="#ffffff" stroke-width="4" x1="2" y1="217" x2="34" y2="217"></line><polygon fill="#ffffff" transform="translate(34,217) rotate(90)" points="0,-6 6,6 -6,6"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 675px; top: 413px;" data-block-id="62cb678f848c394c8734b41ca13b3c38"><div class="sl-block-content fragment" data-line-x1="2" data-line-y1="217" data-line-x2="40" data-line-y2="217" data-line-color="#ffffff" data-line-start-type="none" data-line-end-type="arrow" style="z-index: 35;" data-line-width="4px" data-fragment-index="2"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="38" height="1" viewbox="2 217 38 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="2" y1="217" x2="34" y2="217"></line><line stroke="#ffffff" stroke-width="4" x1="2" y1="217" x2="34" y2="217"></line><polygon fill="#ffffff" transform="translate(34,217) rotate(90)" points="0,-6 6,6 -6,6"></polygon></svg></div></div></section><section data-id="310666692d422f98cf6d4f5797101cf6"><div class="sl-block" data-block-type="text" style="width: 476px; left: 84px; top: 66px; height: auto;" data-block-id="6c86872ea7223d4ea6d595fef9d49898"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">Advantages</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1051px; left: 84px; top: 170px;" data-block-id="6c9b6af1d9bf0155899ad8483dc9685c"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left; line-height: 1.95;" data-has-line-height="" data-fragment-index="0">
+<ul>
+	<li class="fragment" data-fragment-index="1">Isolation
+	<ul>
+		<li class="fragment" data-fragment-index="2">Each interpreter has its own copy of all modules, classes, functions, and variables</li>
+		<li class="fragment" data-fragment-index="3">But process-global state remains shared (file descriptors, builtin types...)</li>
+	</ul>
+	</li>
+	<li class="fragment" data-fragment-index="4">Potentially performance
+	<ul>
+		<li class="fragment" data-fragment-index="5">multiprocessing &lt; subinterpreter &lt; threads ?</li>
+	</ul>
+	</li>
+	<li class="fragment" data-fragment-index="6">Provide a direct route to an alternate concurrency mode</li>
+</ul>
+</div></div></section><section data-id="11cae80c4499a4c013b682c7a1265e8d"><div class="sl-block" data-block-type="text" style="width: 1116px; left: 84px; top: 66px; height: auto;" data-block-id="2c508669720bed5dc8d5efaef47593fa"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1 style="text-align:left">In Progress</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1051px; left: 84px; top: 170px;" data-block-id="ea75873e47e9d4fd187d64ea0a1a6c8c"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li class="fragment" data-fragment-index="0"><a href="https://github.com/ericsnowcurrently/multi-core-python" target="_blank">https://github.com/ericsnowcurrently/multi-core-python</a></li>
+	<li class="fragment" data-fragment-index="1">Resolve bugs</li>
+	<li class="fragment" data-fragment-index="2">Deal with C globals</li>
+	<li class="fragment" data-fragment-index="3">Move some runtime state into the interpreter state
+	<ul>
+		<li class="fragment" data-fragment-index="4">Including the GIL</li>
+	</ul>
+	</li>
+</ul>
+</div></div></section><section data-id="a2e7e0bf4212f65ead6e18242d6b9c2f"><div class="sl-block" data-block-type="text" style="width: 1076px; left: 102px; top: 274px; height: auto;" data-block-id="a1cd3a6d4be6377ae534746e25106f92"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1>That's All. Thanks!!!</h1>
+</div></div></section><section data-id="c8df4f67e488a49434db772090b53083"><div class="sl-block" data-block-type="text" style="width: 1116px; left: 84px; top: 66px; height: auto;" data-block-id="eed4e5f1f001123d1d43bd16ac77f5d3"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12;">
+<h1 style="text-align:left">Contacts</h1>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1051px; left: 84px; top: 170px;" data-block-id="021c7cf2f440f5d7842e9c3899549e6d"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; text-align: left; line-height: 1.95;" data-has-line-height="">
+<ul>
+	<li>Homepage: <a href="http://jiayuanzhang.com/" target="_blank">http://jiayuanzhang.com/</a>
+</li>
+	<li>Blog: <a href="http://blog.jiayuanzhang.com/" target="_blank">http://blog.jiayuanzhang.com/</a>
+</li>
+	<li>GitHub: <a href="https://github.com/forrestchang" target="_blank">https://github.com/forrestchang</a>
+</li>
+	<li>Twitter: <a href="https://twitter.com/tisoga" target="_blank">https://twitter.com/tisoga</a>
+</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="image" data-block-id="702219f6f995da4c4d6aef93b1faccae" style="min-width: 4px; min-height: 4px; width: 243px; height: 232px; left: 815px; top: 170px;"><div class="sl-block-content" style="z-index: 13;"><img style="" data-natural-width="1180" data-natural-height="1128" data-lazy-loaded="" data-src="the-past-and-future-of-gil/a4d0544e62807b48d606db30fa6b5b5a.png"></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="a26d89c7a5a30f8af6ed49a8c2a1a725" style="height: auto; min-width: 30px; min-height: 30px; width: 386px; left: 744px; top: 418px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p>Wechat</p>
+
+<p>（请备注公司/学校 + 姓名）</p>
+</div></div></section>
+			</div>
+		</div>
+
+		<script>
+			var SLConfig = {"deck": {"id":1602724,"slug":"the-past-and-future-of-gil","title":"The Past and Future of GIL","description":"","width":1280,"height":720,"visibility":"all","published_at":"2019-09-19T16:34:55.831Z","sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/ee1fb9143742de7baac293a1008c14d0/thumb.jpg?1568949531","view_count":9,"user":{"id":257589,"username":"jiayuanzhang","name":"Jiayuan Zhang","description":"","thumbnail_url":"https://lh5.googleusercontent.com/-wJgdQ6KCYw8/AAAAAAAAAAI/AAAAAAAAACc/PHf7jSbnre0/photo.jpg?sz=50","paid":true,"pro":false,"lite":true,"team_id":null,"settings":{"id":75013,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null}},"background_transition":"slide","transition":"slide","theme_id":null,"theme_font":"montserrat","theme_color":"black-orange","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":true,"rolling_links":false,"center":false,"shuffle":false,"should_loop":false,"share_notes":false,"slide_number":true,"slide_count":42,"rtl":false,"version":2,"collaborative":null,"deck_user_editor_limit":1,"data_updated_at":1569007810311,"font_typekit":null,"font_google":null,"time_limit":null,"upsizing_enabled":true,"notes":{}}};
+
+
+			// Use local fonts
+			SLConfig.fonts_url = 'lib/fonts/';
+		</script>
+
+		<script src="lib/reveal.min.js"></script>
+		<script src="lib/offline.js"></script>
+
+		<!-- Initialize the presentation -->
+		<script>
+			Reveal.initialize({
+				width: 1280,
+				height: 720,
+				margin: 0.05,
+				
+
+				hash: true,
+				controls: true,
+				progress: true,
+				mouseWheel: false,
+				showNotes: false,
+				slideNumber: true,
+
+				autoSlide: 0,
+				autoSlideStoppable: true,
+
+				center: false,
+				shuffle: false,
+				loop: false,
+				rtl: false,
+
+				transition: "slide",
+				backgroundTransition: "slide",
+
+				highlight: {
+					escapeHTML: false
+				},
+
+				dependencies: [
+					{ src: 'lib/reveal-plugins/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/highlight/highlight.js' },
+					{ src: 'lib/reveal-plugins/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'lib/reveal-plugins/zoom/zoom.js', async: true }
+				]
+			});
+		</script>
+
+		
+
+	</body>
+</html>
