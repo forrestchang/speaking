@@ -10,7 +10,7 @@ Feel free to submit PRs to add new events to the list, or drop me an email at fo
 
 > Jiayuan is an open source contributor, a blogger and a lifelong hacker. He
 > joined IQIYI since 2017 and focuses on backend development. Jiayuan has a cat
-> named **lambda**.
+> named *[lambda](https://twitter.com/Tisoga/status/1177412165550010368?s=20)*.
 
 #### [More about me](https://jiayuanzhang.com)
 
