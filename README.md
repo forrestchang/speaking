@@ -11,7 +11,7 @@ Feel free to submit PRs to add new events to the list, or drop me an email at fo
 > Jiayuan is a web developer and focues on Python, JavaScript and Lisp. He
 > is an open source contributor, a blogger and a lifelong hacker. He joined
 > [iqiyi.com](https://iqiyi.com) since 2017. He has a cat named
-> *[lambda](https://twitter.com/Tisoga/status/1177412165550010368?s=20).
+> [lambda](https://twitter.com/Tisoga/status/1177412165550010368?s=20).
 
 #### [More about me](https://jiayuanzhang.com)
 
