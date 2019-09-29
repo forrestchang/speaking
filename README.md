@@ -6,8 +6,6 @@ Feel free to submit PRs to add new events to the list, or drop me an email at fo
 
 <a href="http://jiayuanzhang.com"> <img src="https://raw.githubusercontent.com/forrestchang/img-repo/master/jiayuan.jpg" width="200"></a>
 
-<br />
-
 ## Bio
 
 > Jiayuan is an open source contributor, a blogger and a lifelong hacker. He
