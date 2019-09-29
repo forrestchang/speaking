@@ -29,7 +29,7 @@ Beijing, China  | 13  April | [CSDN Python Developer's Day](https://bss.csdn.net
 
 ### 2018
 
-Location | Date | Conference
----------|------|------------
+Location | Date | Conference | Topic
+---------|------|------------ | -----
 Shanghai, China | 14 October | [PyCon China](https://www.huodongxing.com/go/pyconchina2018) | Type Hints Best Practice
 Shanghai, China | 10 May | [IQIYI.Inc](https://iqiyi.com) | Introduction to Xianzhi Platform
