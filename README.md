@@ -8,12 +8,8 @@ Feel free to submit PRs to add new events to the list, or drop me an email at fo
 
 ## Bio
 
-> Jiayuan is a web developer and focuses on Python, JavaScript and Lisp. He
-> is an open source contributor, a blogger and a lifelong hacker. He joined
-> [iqiyi.com](https://iqiyi.com) since 2017 and works for QIXIU Edge Team. He has a cat named
-> [lambda](https://twitter.com/Tisoga/status/1177412165550010368?s=20).
-
-#### [More about me](https://jiayuanzhang.com)
+> Jiayuan is a web developer and focuses on Go, Python, JavaScript and Lisp. He
+> is an open source contributor, a blogger and a lifelong hacker. 
 
 ## Video recordings of previous talks
 
